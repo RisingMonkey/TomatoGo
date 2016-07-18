@@ -1,10 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'maven-publish'
-apply from: 'https://raw.github.com/chrisbanes/gradle-mvn-push/master/gradle-mvn-push.gradle'
-
-//To upload to maven central
-//http://zserge.com/blog/gradle-maven-publish.html
-//gradle uploadArchives
 
 buildscript {
     repositories {
@@ -74,31 +68,3 @@ android.libraryVariants.all { variant ->
     artifacts.add('archives', task);
 }
 
-// To publish to maven local execute "gradle clean build publishToMavenLocal"
-// To publish to nexus execute "gradle clean build publish"
-android.libraryVariants
-publishing {
-    publications {
-        maven(MavenPublication) {
-            artifact "${project.buildDir}/outputs/aar/${project.name}-release.aar"
-            artifactId = POM_ARTIFACT_ID
-            groupId = GROUP
-            version = VERSION_NAME
-
-            // Task androidSourcesJar is provided by gradle-mvn-push.gradle
-            //artifact androidSourcesJar {
-            //    classifier "sources"
-            //}
-        }
-    }
-
-    repositories {
-        maven {
-            credentials {
-                username 'nexusUser'
-                password 'nexusPass'
-            }
-            url "http://your-nexus-url/"
-        }
-    }
-}

@@ -7,6 +7,8 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -77,11 +79,11 @@ public class StatisticActivity extends AppCompatActivity {
 
         ButterKnife.inject(this);
         generateInitialLineData();
-        generateColumnData();
+        generateColumnData(Calendar.getInstance().get(Calendar.MONTH));
         generatePieData();
 
     }
-    private void generateColumnData() {
+    private void generateColumnData(int month) {
 
         int numSubcolumns = 1;
         int numColumns = date.length;
@@ -92,8 +94,9 @@ public class StatisticActivity extends AppCompatActivity {
         for (int i = 0; i < numColumns; ++i) {
 
             values = new ArrayList<SubcolumnValue>();
+            int num[] = DataReceiver.monthStatistics(month);
             for (int j = 0; j < numSubcolumns; ++j) {
-                values.add(new SubcolumnValue((float) Math.random() * 10f, ChartUtils.pickColor()));
+                values.add(new SubcolumnValue(num[i], ChartUtils.pickColor()));
             }
 
             axisValues.add(new AxisValue(i).setLabel(date[i]));
@@ -117,24 +120,8 @@ public class StatisticActivity extends AppCompatActivity {
 
         ColumnChart.setZoomType(ZoomType.HORIZONTAL);
 
-        // chartBottom.setOnClickListener(new View.OnClickListener() {
-        //
-        // @Override
-        // public void onClick(View v) {
-        // SelectedValue sv = chartBottom.getSelectedValue();
-        // if (!sv.isSet()) {
-        // generateInitialLineData();
-        // }
-        //
-        // }
-        // });
-
     }
 
-    /**
-     * Generates initial data for line chart. At the begining all Y values are equals 0. That will change when user
-     * will select value on column chart.
-     */
     private void generateInitialLineData() {
         int numValues = time.length;
 
@@ -157,10 +144,8 @@ public class StatisticActivity extends AppCompatActivity {
 
         LineChart.setLineChartData(lineData);
 
-        // For build-up animation you have to disable viewport recalculation.
         LineChart.setViewportCalculationEnabled(false);
 
-        // And set initial max viewport and current viewport- remember to set viewports after data.
         Viewport v = new Viewport(0, 5, time.length-1, 0);
         Viewport cv = new Viewport(0, 5, 6, 0);
         LineChart.setMaximumViewport(v);
@@ -171,11 +156,9 @@ public class StatisticActivity extends AppCompatActivity {
     }
 
     private void generateLineData(int color, int day) {
-        // Cancel last animation if not finished.
         LineChart.cancelDataAnimation();
 
-        // Modify data targets
-        Line line = lineData.getLines().get(0);// For this example there is always only one line.
+        Line line = lineData.getLines().get(0);
         line.setColor(color);
         int counter = 0;
         int num[] = DataReceiver.dayStatistics(day);
