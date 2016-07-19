@@ -88,6 +88,7 @@ public class StatisticActivity extends AppCompatActivity {
         int numSubcolumns = 1;
         int numColumns = date.length;
 
+
         List<AxisValue> axisValues = new ArrayList<AxisValue>();
         List<Column> columns = new ArrayList<Column>();
         List<SubcolumnValue> values;
