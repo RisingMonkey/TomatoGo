@@ -9,6 +9,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity.MainActivity">
+
+        </activity>
+        <activity android:name=".statisticView.StatisticActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

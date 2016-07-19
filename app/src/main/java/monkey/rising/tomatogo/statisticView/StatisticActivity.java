@@ -111,7 +111,6 @@ public class StatisticActivity extends AppCompatActivity {
 
         ColumnChart.setColumnChartData(columnData);
 
-
         // Set value touch listener that will trigger changes for chartTop.
         ColumnChart.setOnValueTouchListener(new ValueTouchListener());
 
