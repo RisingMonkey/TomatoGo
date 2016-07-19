@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ededed"
+    tools:context=".settings.Label"
+    android:id="@+id/layout">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="我的标签"
+        android:id="@+id/label"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:textSize="25dp"
+        android:minHeight="80dp"
+        android:background="#ffffff"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="学习"
+        android:layout_marginLeft="16dp"
+        android:id="@+id/button"
+        android:layout_below="@+id/label"
+        android:layout_alignStart="@+id/label"
+        android:layout_alignParentEnd="true"
+        android:background="@android:color/transparent"
+        android:textAlignment="textStart"
+        android:textSize="20dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="工作"
+        android:id="@+id/button2"
+        android:layout_below="@+id/button"
+        android:layout_alignStart="@+id/button"
+        android:layout_alignParentEnd="true"
+        android:background="@android:color/transparent"
+        android:textAlignment="textStart"
+        android:textSize="20dp" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageButton"
+        android:layout_alignEnd="@+id/label"
+        android:layout_alignParentTop="true"
+        android:minHeight="80dp"
+        android:minWidth="80dp"
+        android:src="@android:drawable/ic_input_add"
+        android:background="#ffffff"
+    />
+
+</RelativeLayout>
