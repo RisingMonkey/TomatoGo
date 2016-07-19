@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ededed">
+    android:background="#ffffff">
 
     <Button
         android:layout_width="wrap_content"
@@ -77,7 +77,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:background="@android:color/transparent"
-        android:drawableLeft="@mipmap/theme"
+        android:drawableLeft="@mipmap/theme1"
         android:textAlignment="textStart"
         android:textSize="20dp" />
 
