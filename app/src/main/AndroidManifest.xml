@@ -11,13 +11,21 @@
         <activity android:name=".MainActivity.MainActivity">
 
         </activity>
-        <activity android:name="monkey.rising.tomatogo.TaskSystem.logactivity">
+        <activity android:name=".TaskSystem.logactivity">
 
         </activity>
-        <activity android:name=".TaskSystem.AddTask"></activity>
-        <activity android:name=".TaskSystem.EditTask"></activity>
-        <activity android:name=".TaskSystem.regisiter"></activity>
-        <activity android:name=".TaskSystem.tasklist"></activity>
+        <activity android:name=".TaskSystem.AddTask">
+
+        </activity>
+        <activity android:name=".TaskSystem.EditTask">
+
+        </activity>
+        <activity android:name=".TaskSystem.regisiter">
+
+        </activity>
+        <activity android:name=".TaskSystem.tasklist">
+
+        </activity>
 
         <activity android:name=".statisticView.StatisticActivity">
             <intent-filter>
@@ -26,6 +34,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".settings.Settings">
+
+        </activity>
+
+    <activity android:name=".settings.Skin"/>
+    <activity android:name=".settings.Picture"/>
+    <activity android:name=".settings.Theme" />
+    <activity android:name=".settings.Label"/>
+
     </application>
 
 </manifest>
