@@ -11,9 +11,14 @@
         <activity android:name=".MainActivity.MainActivity">
 
         </activity>
-        <activity android:name="com.example.lizhangfang.clock.TaskSystem.logactivity">
+        <activity android:name="monkey.rising.tomatogo.TaskSystem.logactivity">
 
         </activity>
+        <activity android:name=".TaskSystem.AddTask"></activity>
+        <activity android:name=".TaskSystem.EditTask"></activity>
+        <activity android:name=".TaskSystem.regisiter"></activity>
+        <activity android:name=".TaskSystem.tasklist"></activity>
+
         <activity android:name=".statisticView.StatisticActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
