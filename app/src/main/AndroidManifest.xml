@@ -9,12 +9,22 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity.MainActivity">
+
+        </activity>
+        <activity android:name=".settings.Settings">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+    <activity android:name=".settings.Skin"/>
+    <activity android:name=".settings.Picture"/>
+    <activity android:name=".settings.Theme" />
+    <activity android:name=".settings.Label"/>
+        <activity android:name=".statisticView.StatisticActivity">
+    </activity>
     </application>
 
 </manifest>
