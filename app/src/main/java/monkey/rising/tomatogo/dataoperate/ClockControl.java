@@ -145,14 +145,14 @@ public class ClockControl {
         return clocksbyuser;
     }
 
-    public long insertOneClock(String id,String userid,String taskid,int lasttime,int timeexp,String taskContent,String type){
+    public long insertOneClock(String id,String userid,String taskid,int lasttime,int timeexp,String taskContent,String type,String isdone){
         ContentValues values=new ContentValues();
         values.put("id",id);
         values.put("username",userid);
         values.put("taskid",taskid);
         values.put("lasttime",lasttime);
         values.put("timeexp",timeexp);
-        values.put("isdone","false");
+        values.put("isdone",isdone);
         values.put("content",taskContent);
         values.put("type",type);
         return db.insert("clock",null,values);

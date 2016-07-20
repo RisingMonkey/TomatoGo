@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -136,15 +135,12 @@ public class TaskControl {
      types.add("工作");
      types.add("其他");
      for (Task task:tasks) {
-         Log.e("task:",task.getType());
          if(task.getUserid().equals(user)){
         if(Istype(types,task.getType())){
             types.add(task.getType());
         }
          }
      }
-     Log.e("types:",types.toString());
-
      return types;
   }
     public void loadTask(){
