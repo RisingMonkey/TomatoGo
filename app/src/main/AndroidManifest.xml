@@ -40,7 +40,6 @@
     <activity android:name=".settings.Picture"/>
     <activity android:name=".settings.Theme" />
     <activity android:name=".settings.Label"/>
-
         <activity android:name=".statisticView.StatisticActivity">
     </activity><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
