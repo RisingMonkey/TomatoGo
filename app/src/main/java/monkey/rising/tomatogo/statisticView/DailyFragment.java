@@ -1,6 +1,8 @@
 package monkey.rising.tomatogo.statisticView;
 
 
+import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,8 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -29,6 +34,8 @@ import lecho.lib.hellocharts.util.ChartUtils;
 import lecho.lib.hellocharts.view.ColumnChartView;
 import lecho.lib.hellocharts.view.LineChartView;
 import monkey.rising.tomatogo.R;
+import monkey.rising.tomatogo.dataoperate.Clock;
+import monkey.rising.tomatogo.dataoperate.ClockControl;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -47,13 +54,13 @@ public class DailyFragment extends Fragment {
 
     private LineChartData lineData;
     private ColumnChartData columnData;
+    private ClockControl cc;
+    private String userid;
     public final static String[] date = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
             "11", "12", "13", "14", "15", "16", "17", "18", "19", "20",
             "21", "22", "23", "24", "25", "26", "27", "28", "29", "30",};
 
-    public final static String[] time = new String[]{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
-            "11", "12", "13", "14", "15", "16", "17", "18", "19", "20",
-            "21", "22", "23", "24",};
+    public final static String[] time = new String[]{"0-4","4-8", "8-12", "12-16","16-20", "20-24"};
 
     public DailyFragment() {
         // Required empty public constructor
@@ -67,8 +74,20 @@ public class DailyFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_daily, container, false);
         ButterKnife.inject(this, view);
 
+        cc = new ClockControl(getContext());
+        cc.openDataBase();
+        cc.loadclock();
+        cc.closeDb();
+
+        SharedPreferences sharedPreferences;
+        sharedPreferences = getContext().getSharedPreferences("share",Activity.MODE_PRIVATE);
+        userid = sharedPreferences.getString("userid","");
         generateInitialLineData();
-        generateColumnData(Calendar.getInstance().get(Calendar.MONTH));
+        try {
+            generateColumnData(Calendar.getInstance().get(Calendar.MONTH));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         return view;
     }
@@ -79,7 +98,7 @@ public class DailyFragment extends Fragment {
         ButterKnife.reset(this);
     }
 
-    private void generateColumnData(int month) {
+    private void generateColumnData(int month) throws ParseException {
 
         int numSubcolumns = 1;
         int numColumns = date.length;
@@ -118,7 +137,7 @@ public class DailyFragment extends Fragment {
         LineChart.setZoomType(ZoomType.HORIZONTAL);
         ColumnChart.setZoomType(ZoomType.HORIZONTAL);
 
-        int num[] = DataReceiver.monthStatistics(month);
+        Integer[] num = (Integer[])cc.countbymonth(month,userid).toArray();
         int counter = 0;
         for (Column column : columnData.getColumns()) {
             for (SubcolumnValue value : column.getValues()) {
@@ -168,13 +187,19 @@ public class DailyFragment extends Fragment {
 
     }
 
-    private void generateLineData(int color, int day) {
+    private void generateLineData(int color, int day) throws ParseException {
         LineChart.cancelDataAnimation();
 
         Line line = lineData.getLines().get(0);
         line.setColor(color);
         int counter = 0;
-        int num[] = DataReceiver.dayStatistics(day);
+        int num[] = {0,0,0,0,0,0};
+        String yMonth = Calendar.getInstance().get(Calendar.YEAR) + "-" + Calendar.getInstance().get(Calendar.MONTH) + "-" +day;
+
+        for (Clock c : cc.findbyday(yMonth,userid)){
+            Date time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(c.getId());
+            num[time.getHours()/4]++;
+        }
         for (PointValue value : line.getValues()) {
             // Change target only for Y value.
             value.setTarget(value.getX(), num[counter]);
@@ -189,13 +214,21 @@ public class DailyFragment extends Fragment {
 
         @Override
         public void onValueSelected(int columnIndex, int subcolumnIndex, SubcolumnValue value) {
-            generateLineData(value.getColor(), Integer.parseInt(date[columnIndex]));
+            try {
+                generateLineData(value.getColor(), Integer.parseInt(date[columnIndex]));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
 
         @Override
         public void onValueDeselected() {
 
-            generateLineData(ChartUtils.COLOR_GREEN, 0);
+            try {
+                generateLineData(ChartUtils.COLOR_GREEN, 0);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
 
         }
     }

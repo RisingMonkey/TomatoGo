@@ -36,9 +36,6 @@ public class ClockControl {
         }
     }
 
-
-
-
     public ArrayList<Clock> getbyType(String type,String user){
         ArrayList<Clock> clocks=new ArrayList<Clock>();
         for (Clock clock:findbyuser(user)) {
@@ -47,8 +44,8 @@ public class ClockControl {
             }
         }
         return clocks;
-
     }
+
     public  void loadclock(){
         Cursor cursor=db.query("clock",new String[]{"id","username","taskid","lasttime","timeexp","isdone","content","type"},null,null,null,null,null);
         covertoClock(cursor);
@@ -66,10 +63,11 @@ public class ClockControl {
     }
 
 
-    public ArrayList<Integer> countbymonth(String day,String user) throws ParseException {
+    public ArrayList<Integer> countbymonth(int m,String user) throws ParseException {
 
         ArrayList<Integer> result=new ArrayList<>();
         Calendar c=Calendar.getInstance();
+        String day = "" + m;
         Date d=new SimpleDateFormat("yyyy-MM").parse(day);
         c.setTime(d);
         int year=c.get(Calendar.YEAR);
@@ -121,6 +119,7 @@ public class ClockControl {
     public ArrayList<Clock> findbyday(String day,String user){
         ArrayList<Clock> clocksbyday=new ArrayList<>();
         Date d=null;
+        int[] res = {0,0,0,0,0,0};
         try {
             for (Clock clock:findbyuser(user)) {
                 d=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(clock.getId());
