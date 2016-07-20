@@ -49,6 +49,21 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
+        <activity android:name=".config.AchievementView" />
+        <activity
+            android:name=".config.ConfigView"
+            android:label="设置">
+        </activity>
+        <activity
+            android:name=".config.textSizeChangeView"
+            android:label="设置"></activity>
+        <activity
+            android:name=".config.AboutView"
+            android:label="关于我们"></activity>
+
+        <activity android:name=".config.BellView"
+            android:label="设置"></activity>
     </application>
 
 </manifest>
