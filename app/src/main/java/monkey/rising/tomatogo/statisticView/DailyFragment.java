@@ -159,8 +159,8 @@ public class DailyFragment extends Fragment {
 
         LineChart.setViewportCalculationEnabled(false);
 
-        Viewport v = new Viewport(0, 5, time.length - 1, 0);
-        Viewport cv = new Viewport(0, 5, 6, 0);
+        Viewport v = new Viewport(0, 10, time.length - 1, 0);
+        Viewport cv = new Viewport(0, 10, 6, 0);
         LineChart.setMaximumViewport(v);
         LineChart.setCurrentViewport(cv);
 
