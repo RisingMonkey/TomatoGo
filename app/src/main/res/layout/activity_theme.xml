@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff">
+    android:background="#ffffff"
+    android:id="@+id/layout">
 
     <Button
         android:layout_width="wrap_content"
@@ -21,16 +22,16 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/theme2"
         android:layout_alignBottom="@+id/lightblue"
-        android:layout_alignEnd="@+id/black"
-        android:layout_alignStart="@+id/black"
+        android:layout_alignEnd="@+id/yellow"
+        android:layout_alignStart="@+id/yellow"
         android:touchscreenBlocksFocus="true"
         android:id="@+id/radiogroup"
         android:measureWithLargestChild="true">
     <RadioButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="黑色"
-        android:id="@+id/black"
+        android:text="黄色"
+        android:id="@+id/yellow"
         android:layout_below="@+id/title"
         android:layout_alignParentStart="true"
         android:layout_marginTop="59dp"
@@ -42,7 +43,7 @@
         android:layout_height="wrap_content"
         android:text="白色"
         android:id="@+id/white"
-        android:layout_below="@+id/black"
+        android:layout_below="@+id/yellow"
         android:layout_alignParentStart="true"
         android:textSize="20dp"
         android:layout_marginLeft="16dp"/>
