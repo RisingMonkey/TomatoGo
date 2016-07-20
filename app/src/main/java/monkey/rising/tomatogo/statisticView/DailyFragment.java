@@ -115,11 +115,6 @@ public class DailyFragment extends Fragment {
 
         ColumnChart.setViewportCalculationEnabled(false);
 
-        Viewport v = new Viewport(0, 5, time.length - 1, 0);
-        Viewport cv = new Viewport(0, 5, 6, 0);
-        ColumnChart.setMaximumViewport(v);
-        ColumnChart.setCurrentViewport(cv);
-
         LineChart.setZoomType(ZoomType.HORIZONTAL);
         ColumnChart.setZoomType(ZoomType.HORIZONTAL);
 
@@ -131,6 +126,11 @@ public class DailyFragment extends Fragment {
                 counter++;
             }
         }
+
+        Viewport v = new Viewport(0, 20, date.length - 1, 0);
+        Viewport cv = new Viewport(0, 20, 14, 0);
+        ColumnChart.setMaximumViewport(v);
+        ColumnChart.setCurrentViewport(cv);
         ColumnChart.startDataAnimation();
 
     }
@@ -180,11 +180,7 @@ public class DailyFragment extends Fragment {
             value.setTarget(value.getX(), num[counter]);
             counter++;
         }
-        int max = 0;
-        for(int i = 0; i < counter; i++)
-            max = (num[i]<num[i+1]) ? num[i+1] : num[i];
-        LineChart.getMaximumViewport().top = max;
-        LineChart.getCurrentViewport().top = 10;
+
         // Start new data animation with 300ms duration;
         LineChart.startDataAnimation(300);
     }
