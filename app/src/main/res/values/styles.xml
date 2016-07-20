@@ -17,4 +17,21 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="MiniSize">
+        <item name="android:textSize">10sp</item>
+    </style>
+    <style name="SmallSize">
+        <item name="android:textSize">15sp</item>
+    </style>
+    <style name="MiddleSize">
+        <item name="android:textSize">20sp</item>
+    </style>
+    <style name="LargeSize">
+        <item name="android:textSize">25sp</item>
+    </style>
+    <style name="HugeSize">
+        <item name="android:textSize">30sp</item>
+    </style>
+
+
 </resources>
