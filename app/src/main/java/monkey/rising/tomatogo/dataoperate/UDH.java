@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class UDH extends SQLiteOpenHelper {
 
-    public static final String Create_user="create table user("+"id text primary key autoincrement,"+"pw text)";
+    public static final String Create_user="create table user("+"id text primary key,"+"pw text)";
 
 
 
