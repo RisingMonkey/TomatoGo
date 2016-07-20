@@ -180,7 +180,11 @@ public class DailyFragment extends Fragment {
             value.setTarget(value.getX(), num[counter]);
             counter++;
         }
-
+        int max = 0;
+        for(int i = 0; i < counter; i++)
+            max = (num[i]<num[i+1]) ? num[i+1] : num[i];
+        LineChart.getMaximumViewport().top = max;
+        LineChart.getCurrentViewport().top = 10;
         // Start new data animation with 300ms duration;
         LineChart.startDataAnimation(300);
     }
