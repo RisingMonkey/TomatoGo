@@ -2,8 +2,6 @@ package monkey.rising.tomatogo.TaskSystem;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -12,16 +10,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Toast;
 
-import monkey.rising.tomatogo.R;
-import monkey.rising.tomatogo.dataoperate.Task;
-import monkey.rising.tomatogo.dataoperate.TaskControl;
-import monkey.rising.tomatogo.TaskSystem.slideview.RemoveDirection;
-import monkey.rising.tomatogo.TaskSystem.slideview.RemoveListener;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import monkey.rising.tomatogo.TaskSystem.slideview;
+import monkey.rising.tomatogo.R;
+import monkey.rising.tomatogo.TaskSystem.slideview.RemoveDirection;
+import monkey.rising.tomatogo.TaskSystem.slideview.RemoveListener;
+import monkey.rising.tomatogo.dataoperate.Task;
+import monkey.rising.tomatogo.dataoperate.TaskControl;
 
 public class tasklist extends AppCompatActivity implements RemoveListener{
    private slideview slide;
@@ -60,14 +56,6 @@ public class tasklist extends AppCompatActivity implements RemoveListener{
 
 
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         ArrayList<String> str=new ArrayList<>();
 
