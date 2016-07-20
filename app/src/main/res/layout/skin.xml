@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:id="@+id/layout_skin">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="我的皮肤"
+        android:id="@+id/title"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:minHeight="80dp"
+        android:background="#ffffff"
+        android:singleLine="false"
+        android:textSize="25dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="背景图片"
+        android:id="@+id/picture"
+        android:layout_below="@+id/title"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:textAlignment="textStart"
+        android:drawableLeft="@mipmap/skin"
+        android:background="@android:color/transparent"
+        android:textSize="20dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="我的主题"
+        android:id="@+id/theme"
+        android:layout_below="@+id/picture"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:textAlignment="textStart"
+        android:drawableLeft="@mipmap/theme"
+        android:background="@android:color/transparent"
+        android:textSize="20dp" />
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/shape"
+
+        android:layout_alignBottom="@+id/picture"
+        android:layout_alignParentStart="true"></View>
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/shape"
+
+        android:layout_alignBottom="@+id/theme"
+        android:layout_alignParentStart="true"></View>
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/shape"
+
+        android:layout_above="@+id/picture"
+        android:layout_alignParentStart="true"></View>
+
+</RelativeLayout>

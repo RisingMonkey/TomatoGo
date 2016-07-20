@@ -20,12 +20,26 @@
         <activity android:name=".TaskSystem.tasklist"></activity>
 
         <activity android:name=".statisticView.StatisticActivity">
+
+        </activity>
+        <activity android:name=".settings.Settings">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+    <activity android:name=".settings.Skin"/>
+    <activity android:name=".settings.Picture"/>
+    <activity android:name=".settings.Theme" />
+    <activity android:name=".settings.Label"/>
+        <activity android:name=".statisticView.StatisticActivity">
+    </activity><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
     </application>
 
 </manifest>
