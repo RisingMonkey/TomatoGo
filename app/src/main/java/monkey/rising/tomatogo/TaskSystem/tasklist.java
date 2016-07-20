@@ -61,6 +61,7 @@ public class tasklist extends AppCompatActivity implements RemoveListener{
 
         for (Task task:
            taskControl.findtaskbyuser(userid) ) {
+            if(!task.isDone)
             str.add(task.getContent());
 
         }
