@@ -12,7 +12,6 @@
 
         </activity>
         <activity android:name="monkey.rising.tomatogo.TaskSystem.logactivity">
-
         </activity>
         <activity android:name=".TaskSystem.AddTask"></activity>
         <activity android:name=".TaskSystem.EditTask"></activity>
@@ -20,6 +19,9 @@
         <activity android:name=".TaskSystem.tasklist"></activity>
 
         <activity android:name=".statisticView.StatisticActivity">
+
+        </activity>
+        <activity android:name=".MainActivity.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
