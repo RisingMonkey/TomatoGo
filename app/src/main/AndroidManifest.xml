@@ -22,10 +22,10 @@
         <activity android:name=".statisticView.StatisticActivity">
 
         </activity>
-        <activity android:name=".MainActivity.HomeActivity">
+        <activity android:name=".settings.Settings">
 
         </activity>
-        <activity android:name=".settings.Settings">
+        <activity android:name=".MainActivity.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
