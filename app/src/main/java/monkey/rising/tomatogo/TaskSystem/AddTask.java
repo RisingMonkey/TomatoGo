@@ -12,12 +12,12 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import monkey.rising.tomatogo.R;
-import monkey.rising.tomatogo.dataoperate.TaskControl;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+
+import monkey.rising.tomatogo.R;
+import monkey.rising.tomatogo.dataoperate.TaskControl;
 
 public class AddTask extends AppCompatActivity {
     private EditText content;

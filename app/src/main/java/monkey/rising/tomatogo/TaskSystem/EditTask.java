@@ -11,12 +11,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import monkey.rising.tomatogo.R;
 import monkey.rising.tomatogo.dataoperate.Task;
 import monkey.rising.tomatogo.dataoperate.TaskControl;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class EditTask extends AppCompatActivity {
    EditText content;
