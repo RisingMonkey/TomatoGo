@@ -12,16 +12,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Toast;
 
-import monkey.rising.tomatogo.R;
-import monkey.rising.tomatogo.dataoperate.Task;
-import monkey.rising.tomatogo.dataoperate.TaskControl;
-import monkey.rising.tomatogo.TaskSystem.slideview.RemoveDirection;
-import monkey.rising.tomatogo.TaskSystem.slideview.RemoveListener;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import monkey.rising.tomatogo.TaskSystem.slideview;
+import monkey.rising.tomatogo.R;
+import monkey.rising.tomatogo.TaskSystem.slideview.RemoveDirection;
+import monkey.rising.tomatogo.TaskSystem.slideview.RemoveListener;
+import monkey.rising.tomatogo.dataoperate.Task;
+import monkey.rising.tomatogo.dataoperate.TaskControl;
 
 public class tasklist extends AppCompatActivity implements RemoveListener{
    private slideview slide;
@@ -73,6 +71,7 @@ public class tasklist extends AppCompatActivity implements RemoveListener{
 
         for (Task task:
            taskControl.findtaskbyuser(userid) ) {
+            if(!task.isDone)
             str.add(task.getContent());
 
         }
