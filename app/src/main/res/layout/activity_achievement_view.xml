@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="monkey.rising.tomatogo.config.AchievementView">
+
+    <TextView
+        android:id="@+id/my_achievements"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal|top"
+        android:text="我的成就"
+        android:textSize="20dp"/>
+
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="160dp"
+        android:layout_height="90dp"
+        android:id="@+id/frameLayout1"
+        android:layout_below="@id/my_achievements"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+    <ImageView
+        android:id="@+id/achievement_image1"
+        android:layout_width="160dp"
+        android:layout_height="90dp"
+        android:src="@mipmap/ic_launcher"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_below="@+id/my_achievements"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/achivement_text1"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="番茄爱好者"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_alignBottom="@+id/achievement_image"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <FrameLayout
+        android:id="@+id/dust1"
+        android:layout_width="160dp"
+        android:layout_height="90dp"
+        android:layout_below="@+id/my_achievements"
+        android:background="#BEBEBE"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:visibility="invisible">
+        </FrameLayout>
+    </FrameLayout>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="160dp"
+        android:layout_height="90dp"
+        android:id="@+id/frameLayout2"
+        android:layout_below="@id/my_achievements"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
+        <ImageView
+            android:id="@+id/achievement_image2"
+            android:layout_width="160dp"
+            android:layout_height="90dp"
+            android:src="@mipmap/ic_launcher"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_below="@+id/my_achievements"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:id="@+id/achivement_text2"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="番茄爱好者"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_alignBottom="@+id/achievement_image"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:id="@+id/dust2"
+            android:visibility="visible"
+            android:background="#dad9d9"></FrameLayout>
+    </FrameLayout>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="160dp"
+        android:layout_height="90dp"
+        android:id="@+id/frameLayout3"
+        android:layout_below="@+id/frameLayout1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="26dp">
+
+        <ImageView
+            android:id="@+id/achievement_image3"
+            android:layout_width="160dp"
+            android:layout_height="90dp"
+            android:src="@mipmap/ic_launcher"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_below="@+id/my_achievements"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:id="@+id/achivement_text3"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="番茄爱好者"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_alignBottom="@+id/achievement_image"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <FrameLayout
+            android:id="@+id/dust3"
+            android:layout_width="160dp"
+            android:layout_height="90dp"
+            android:layout_below="@+id/my_achievements"
+            android:background="#dad9d9"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:visibility="visible" />
+    </FrameLayout>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="160dp"
+        android:layout_height="90dp"
+        android:id="@+id/frameLayout4"
+        android:layout_alignTop="@+id/frameLayout3"
+        android:layout_alignRight="@+id/frameLayout2"
+        android:layout_alignEnd="@+id/frameLayout2">
+
+        <ImageView
+            android:layout_width="160dp"
+            android:layout_height="90dp"
+            android:src="@mipmap/ic_launcher"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_below="@+id/my_achievements"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/achievement_image4" />
+
+        <TextView
+            android:id="@+id/achievement_text4"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="番茄爱好者"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_alignBottom="@+id/achievement_image"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <FrameLayout
+            android:id="@+id/dust4"
+            android:layout_width="160dp"
+            android:layout_height="90dp"
+            android:layout_below="@+id/my_achievements"
+            android:background="#dad9d9"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:visibility="visible" />
+    </FrameLayout>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="160dp"
+        android:layout_height="90dp"
+        android:id="@+id/frameLayout5"
+        android:layout_below="@+id/frameLayout3"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="29dp">
+
+        <ImageView
+            android:id="@+id/achievement_image5"
+            android:layout_width="160dp"
+            android:layout_height="90dp"
+            android:src="@mipmap/ic_launcher"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_below="@+id/my_achievements"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:id="@+id/achievement_text5"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="番茄爱好者"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_alignBottom="@+id/achievement_image"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <FrameLayout
+            android:id="@+id/dust5"
+            android:layout_width="160dp"
+            android:layout_height="90dp"
+            android:layout_below="@+id/my_achievements"
+            android:background="#dad9d9"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:visibility="visible" />
+    </FrameLayout>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="160dp"
+        android:layout_height="90dp"
+        android:id="@+id/frameLayout6"
+        android:layout_alignTop="@+id/frameLayout5"
+        android:layout_alignLeft="@+id/frameLayout4"
+        android:layout_alignStart="@+id/frameLayout4">
+
+        <ImageView
+            android:id="@+id/achievement_image6"
+            android:layout_width="160dp"
+            android:layout_height="90dp"
+            android:src="@mipmap/ic_launcher"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_below="@+id/my_achievements"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:id="@+id/achievement_text6"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="番茄爱好者"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_alignBottom="@+id/achievement_image"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <FrameLayout
+            android:id="@+id/dust6"
+            android:layout_width="160dp"
+            android:layout_height="90dp"
+            android:layout_below="@+id/my_achievements"
+            android:background="#dad9d9"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:visibility="visible" />
+    </FrameLayout>
+
+
+
+</RelativeLayout>
