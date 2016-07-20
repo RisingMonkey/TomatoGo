@@ -78,8 +78,11 @@ public class TypeFragment extends Fragment {
     }
 
     private void prepareDataAnimation() {
+        float i = 0;
         for (SliceValue value : pieData.getValues()) {
-            value.setTarget((float) Math.random() * 30 + 15);
+            i = (float) Math.random() * 30 + 15;
+            value.setLabel("Label " + i++);
+            value.setTarget(i);
         }
     }
 }
