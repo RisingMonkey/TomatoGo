@@ -163,17 +163,9 @@ public class HomeActivity extends AppCompatActivity {
         waterView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!isDoing) {
-                    startTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-                    minute = Integer.parseInt(minutePicker.getDisplayedValues()[minutePicker.getValue()]);
-                    totalSec = 60 * minute;
-                    recLen = totalSec;
-                    waterView.setFlowNum("Start!");
-                    waterView.setmWaterLevel(1F);
-                    waterView.startWave();
-                    handler.postDelayed(runnable, 1000);
-                    isDoing = true;
-                } else {
+                if(!isDoing) {
+                    TomatoGo(Integer.parseInt(minutePicker.getDisplayedValues()[minutePicker.getValue()]));
+                }else {
                     AlertDialog.Builder dialog = new AlertDialog.Builder(HomeActivity.this);
                     dialog.setTitle("半途而废？");
                     dialog.setMessage("确定放弃本次番茄钟？");
@@ -260,16 +252,28 @@ public class HomeActivity extends AppCompatActivity {
         dialog.setPositiveButton("放松一下☺(5min)", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                TomatoGo(5);
             }
         });
         dialog.setNegativeButton("继续工作", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                TomatoGo(Integer.parseInt(minutePicker.getDisplayedValues()[minutePicker.getValue()]));
             }
         });
         dialog.show();
+    }
+
+    private void TomatoGo(int mt){
+            startTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+            minute = mt;
+            totalSec = 60 * minute;
+            recLen = totalSec;
+            waterView.setFlowNum("Start!");
+            waterView.setmWaterLevel(1F);
+            waterView.startWave();
+            handler.postDelayed(runnable, 1000);
+            isDoing = true;
     }
 }
 
