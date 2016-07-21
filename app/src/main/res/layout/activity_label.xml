@@ -30,7 +30,7 @@
         android:layout_alignParentEnd="true"
         android:background="@android:color/transparent"
         android:textAlignment="textStart"
-        android:textSize="20dp" />
+         />
 
     <Button
         android:layout_width="wrap_content"
@@ -42,7 +42,7 @@
         android:layout_alignParentEnd="true"
         android:background="@android:color/transparent"
         android:textAlignment="textStart"
-        android:textSize="20dp" />
+        />
 
     <ImageButton
         android:layout_width="wrap_content"

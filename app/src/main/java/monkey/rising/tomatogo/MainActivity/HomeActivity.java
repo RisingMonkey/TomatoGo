@@ -18,6 +18,7 @@ import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import java.security.Provider;
 import java.util.ArrayList;
@@ -25,8 +26,9 @@ import java.util.ArrayList;
 import monkey.rising.tomatogo.R;
 import monkey.rising.tomatogo.TaskSystem.logactivity;
 import monkey.rising.tomatogo.TaskSystem.tasklist;
+import monkey.rising.tomatogo.settings.Settings;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity{
     private int recLen;
     private int second;
     private int minute;
@@ -63,7 +65,7 @@ public class HomeActivity extends AppCompatActivity {
         this.minutePicker=(NumberPicker)super.findViewById(R.id.minutePicker);
         this.mytext5=(TextView)super.findViewById(R.id.mytext5);
         this.myimag1=(ImageView)super.findViewById(R.id.myimag1);
-        this.myimag3=(ImageView)super.findViewById(R.id.myimag2);
+        this.myimag2=(ImageView)super.findViewById(R.id.myimag2);
         this.myimag3=(ImageView)super.findViewById(R.id.myimag3);
         this.vibrator=(Vibrator)super.getApplication().getSystemService(Service.VIBRATOR_SERVICE);
         mytext1.setOnClickListener(new View.OnClickListener() {
@@ -74,9 +76,9 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(intent1);
             }
         });
-        Intent intent5 = getIntent();
+        /*Intent intent5 = getIntent();
         Bundle bundle1 = intent5.getExtras();
-        mytext1.setText(bundle1.getString(username));
+        mytext1.setText(bundle1.getString(username));*/
         mytext2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,9 +87,9 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(intent2);
             }
         });
-        Intent intent6 = getIntent();
+        /*Intent intent6 = getIntent();
         Bundle bundle2 = intent6.getExtras();
-        mytext2.setText(bundle1.getString(task));
+        mytext2.setText(bundle2.getString(task));*/
         myimag1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,7 +105,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent4=new Intent();
-                //intent4.setClass(HomeActivity.this,Setting.class);
+                intent4.setClass(HomeActivity.this,Settings.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("昵称", username);
                 intent4.putExtras(bundle);
@@ -122,7 +124,7 @@ public class HomeActivity extends AppCompatActivity {
                 minute= minute2;
                 totalSec = 60 * minute;
                 recLen = totalSec;
-                waterView.setFlowNum("Start!");
+                //waterView.setFlowNum("Start!");
                 waterView.setmWaterLevel(1F);
                 waterView.startWave();
                 handler.postDelayed(runnable, 1000);
@@ -134,7 +136,7 @@ public class HomeActivity extends AppCompatActivity {
         @Override
         public void run() {
             recLen--;
-            if(recLen >= 0){
+            if(recLen > 0){
                 minute = recLen / 60;
                 second = recLen % 60;
                 m = Integer.toString(minute);
@@ -144,20 +146,22 @@ public class HomeActivity extends AppCompatActivity {
                 if(second < 10)
                     s = "0" + second;
                 waterView.setFlowNum(m + ":" + s);
+                mytext4.setText(m+";"+s);
                 rate = (float)recLen / totalSec;
                 waterView.setmWaterLevel(rate);
                 handler.postDelayed(this, 1000);
             }else{
                 mySharedPreference=getSharedPreferences("Settings",MODE_PRIVATE);
-                shake=mySharedPreference.getBoolean("shake",false);
-                if(shake){
+                shake=mySharedPreference.getBoolean("shake",true);
+               if(shake){
                     HomeActivity.this.vibrator.vibrate(new long[]{1000,10,1000,100},0);//震动服务
                 }
                 mySharedPreference=getSharedPreferences("Setting",MODE_PRIVATE);
-                bell=mySharedPreference.getBoolean("bell",false);
+                bell=mySharedPreference.getBoolean("bell",true);
                 notification=mySharedPreference.getInt("notification",2);
                 if(bell){
                     path =new ArrayList<>();
+                    scannerMediaFile();
                     Uri uri=Uri.parse(path.get(notification));
                     MediaPlayer mp = MediaPlayer.create(HomeActivity.this,uri);
                     mp.start();

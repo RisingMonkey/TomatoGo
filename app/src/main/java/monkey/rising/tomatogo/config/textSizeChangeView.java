@@ -31,8 +31,8 @@ public class textSizeChangeView extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Utils.configSP = getSharedPreferences("textSize",MODE_PRIVATE);
-        textSizeLevel=Utils.configSP.getInt("textSizeStatus",2);
-        progress=Utils.configSP.getInt("progressValue",25);
+        textSizeLevel=Utils.configSP.getInt("textSizeStatus",3);
+        progress=Utils.configSP.getInt("progressValue",50);
        // Utils.onActivityCreateSetTheme(this, Utils.textSizeStatus);
         Utils.onActivityCreateSetTheme(this,textSizeLevel);
         super.onCreate(savedInstanceState);

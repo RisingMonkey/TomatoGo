@@ -29,7 +29,7 @@
         android:textAlignment="textStart"
         android:drawableLeft="@mipmap/skin"
         android:background="@android:color/transparent"
-        android:textSize="20dp" />
+         />
 
     <Button
         android:layout_width="wrap_content"
@@ -42,7 +42,7 @@
         android:textAlignment="textStart"
         android:drawableLeft="@mipmap/theme"
         android:background="@android:color/transparent"
-        android:textSize="20dp" />
+        />
     <View
         android:layout_width="fill_parent"
         android:layout_height="1dp"

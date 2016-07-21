@@ -14,15 +14,19 @@ package monkey.rising.tomatogo.MainActivity;
         import android.os.Parcelable;
         import android.util.AttributeSet;
         import android.view.View;
+        import android.widget.CompoundButton;
         import android.widget.ProgressBar;
+        import android.widget.ToggleButton;
 
         import monkey.rising.tomatogo.R;
 
-public class waterView extends View {
+public class waterView extends View{
 
     private Context mContext;
 
     private int mScreenWidth;
+
+
     private int mScreenHeight;
 
     private Paint mRingPaint;

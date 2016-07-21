@@ -26,7 +26,7 @@ public class ConfigView extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Utils.configSP = getSharedPreferences("textSize",MODE_PRIVATE);
-        int textSizeLevel = Utils.configSP.getInt("textSizeStatus",2);
+        int textSizeLevel = Utils.configSP.getInt("textSizeStatus",3);
         Utils.onActivityCreateSetTheme(this,textSizeLevel);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_config_view);
