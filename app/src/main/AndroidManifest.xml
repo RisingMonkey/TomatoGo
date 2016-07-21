@@ -16,7 +16,11 @@
         <activity android:name=".TaskSystem.regisiter"></activity>
         <activity android:name=".TaskSystem.tasklist"></activity>
         <activity android:name=".MainActivity.HomeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".settings.Settings"></activity>
         <activity android:name=".settings.Skin"/>
@@ -34,11 +38,7 @@
         <activity
             android:name=".config.ConfigView"
             android:label="设置">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".config.textSizeChangeView"
