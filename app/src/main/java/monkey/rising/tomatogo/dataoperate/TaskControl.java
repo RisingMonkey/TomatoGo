@@ -85,8 +85,6 @@ public class TaskControl {
        }
    }
 
-
-
     public long updatedate(String id,String type,String user,String content,String time,String exptime,String starttime,int priority){
         ContentValues values=new ContentValues();
         values.put("type",type);
@@ -135,22 +133,26 @@ public class TaskControl {
      types.add("娱乐");
      types.add("工作");
      types.add("其他");
-     for (Task task:tasks) {
-         Log.e("task:",task.getType());
-         if(task.getUserid().equals(user)){
-        if(Istype(types,task.getType())){
-            types.add(task.getType());
-        }
+     Log.e("isempty:",""+tasks.isEmpty());
+     if(!tasks.isEmpty()) {
+         for (Task task : tasks) {
+            // Log.e("taskuserid:", task.getUserid());
+             if (task.getUserid().equals(user)) {
+                 if (Istype(types, task.getType())) {
+                     types.add(task.getType());
+                 }
+             }
          }
+        // Log.e("types:", types.toString());
      }
-     Log.e("types:",types.toString());
-
      return types;
   }
+
     public void loadTask(){
         Cursor result=db.query("task",new String[]{"id","type","user","content","time","timeexpected","starttime","priority","isdone"},null,null,null,null,null);
         covertoTree(result);
     }
+
    public void covertoTree(Cursor cursor){
        int resultCounts=cursor.getCount();
        if(resultCounts==0||!cursor.moveToFirst()){
@@ -166,5 +168,13 @@ public class TaskControl {
            cursor.moveToNext();
        }
    }
+
+    public Task findByTaskId(String taskId){
+        for(Task t:tasks){
+            if(t.getId().equals(taskId))
+                return t;
+        }
+        return null;
+    }
 
 }

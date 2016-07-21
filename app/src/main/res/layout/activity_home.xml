@@ -32,12 +32,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="时间设置"
-        android:textSize="30dp"
+        android:textSize="20dp"
         android:textIsSelectable="false"
-        android:layout_below="@+id/waterView"
-        android:layout_toLeftOf="@+id/mytext2"
-        android:layout_toStartOf="@+id/mytext2"
-        android:layout_marginTop="30dp" />
+        android:layout_above="@+id/myimag3"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:id="@+id/mytext5"

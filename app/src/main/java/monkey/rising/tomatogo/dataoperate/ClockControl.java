@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -144,16 +145,32 @@ public class ClockControl {
         return clocksbyuser;
     }
 
-    public long insertOneClock(String id,String userid,String taskid,int lasttime,int timeexp,String taskContent,String type){
+    public long insertOneClock(String id,String userid,String taskid,int lasttime,int timeexp,boolean isDone){
         ContentValues values=new ContentValues();
         values.put("id",id);
         values.put("username",userid);
         values.put("taskid",taskid);
         values.put("lasttime",lasttime);
         values.put("timeexp",timeexp);
-        values.put("isdone","false");
-        values.put("content",taskContent);
+        values.put("isdone",isDone);
+
+        TaskControl tc = new TaskControl(context);
+        tc.openDataBase();
+        tc.loadTask();
+        tc.closeDb();
+        Task currentTask = tc.findByTaskId(taskid);
+        String type;
+        String content;
+        if(currentTask!=null){
+            content = currentTask.getContent();
+            type = currentTask.getType();
+        }else{
+            content = "其他";
+            type = "其他";
+        }
+        values.put("content",content);
         values.put("type",type);
+        Log.e("insert:",values.toString());
         return db.insert("clock",null,values);
     }
 }

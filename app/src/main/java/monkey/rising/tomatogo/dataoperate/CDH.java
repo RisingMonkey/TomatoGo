@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  * Created by lizhangfang on 2016/7/19.
  */
 public class CDH extends SQLiteOpenHelper {
-    public static final String sql="create table clock("+"id primary key text,"+"username text,"+"taskid text,"+"lasttime integer,"+"timeexp integer,"+"isdone text,"
+    public static final String sql="create table clock("+"id text primary key,"+"username text,"+"taskid text,"+"lasttime integer,"+"timeexp integer,"+"isdone text,"
             +"content text,"+"type text)";
     public CDH(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
