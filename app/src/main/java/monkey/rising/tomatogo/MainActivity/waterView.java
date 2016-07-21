@@ -36,9 +36,9 @@ public class waterView extends View {
     private int mCircleSTROKEWidth = 2;
     private int mLineSTROKEWidth = 1;
 
-    private int mCircleColor = Color.WHITE;
-    private int mRingColor = Color.WHITE;
-    private int mWaveColor = Color.WHITE;
+    private int mCircleColor = Color.BLUE;
+    private int mRingColor = Color.BLACK;
+    private int mWaveColor = Color.BLUE;
 
     private Handler mHandler;
     private long c = 0L;
@@ -198,8 +198,7 @@ public class waterView extends View {
         // 得到控件的宽高
         int width = getWidth();
         int height = getHeight();
-        setBackgroundColor(mContext.getResources().getColor(
-                R.color.holo_purple2));
+        setBackgroundColor(Color.GRAY);
 
         //计算当前油量线和水平中线的距离
         float centerOffset = Math.abs(mScreenWidth / 2 * mWaterLevel - mScreenWidth / 4);
