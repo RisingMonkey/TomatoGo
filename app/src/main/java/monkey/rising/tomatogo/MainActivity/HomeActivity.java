@@ -2,6 +2,7 @@ package monkey.rising.tomatogo.MainActivity;
 
 import android.app.Service;
 import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -10,10 +11,12 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.Vibrator;
 import android.provider.MediaStore;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AnalogClock;
+import android.widget.CheckBox;
 import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
@@ -43,7 +46,7 @@ public class HomeActivity extends AppCompatActivity {
     private TextView mytext2;
     private waterView waterView;
     private TextView mytext3;
-    private TextView mytext4;
+    //private TextView mytext4;
     private NumberPicker minutePicker;
     private TextView mytext5;
     private ImageView myimag1;
@@ -52,6 +55,7 @@ public class HomeActivity extends AppCompatActivity {
     private Vibrator vibrator;
     private SharedPreferences mySharedPreference;
     private ArrayList<String> path;
+    private boolean isDoing;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,13 +64,16 @@ public class HomeActivity extends AppCompatActivity {
         this.mytext2=(TextView)super.findViewById(R.id.mytext2);
         this.waterView=(waterView)super.findViewById(R.id.waterView);
         this.mytext3=(TextView)super.findViewById(R.id.mytext3);
-        this.mytext4=(TextView) super.findViewById(R.id.mytext4);
+        //this.mytext4=(TextView) super.findViewById(R.id.mytext4);
         this.minutePicker=(NumberPicker)super.findViewById(R.id.minutePicker);
         this.mytext5=(TextView)super.findViewById(R.id.mytext5);
         this.myimag1=(ImageView)super.findViewById(R.id.myimag1);
         this.myimag2=(ImageView)super.findViewById(R.id.myimag2);
         this.myimag3=(ImageView)super.findViewById(R.id.myimag3);
         this.vibrator=(Vibrator)super.getApplication().getSystemService(Service.VIBRATOR_SERVICE);
+
+
+        mytext1.setText(username);
         mytext1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,9 +82,6 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(intent1);
             }
         });
-        /*Intent intent5 = getIntent();
-        Bundle bundle1 = intent5.getExtras();
-        mytext1.setText(bundle1.getString(username));*/
         mytext2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,7 +99,7 @@ public class HomeActivity extends AppCompatActivity {
                 Intent intent3=new Intent();
                 intent3.setClass(HomeActivity.this,tasklist.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("昵称", username);
+                bundle.putString("useid", username);
                 intent3.putExtras(bundle);
                 startActivity(intent3);
             }
@@ -106,7 +110,7 @@ public class HomeActivity extends AppCompatActivity {
                 Intent intent4=new Intent();
                 intent4.setClass(HomeActivity.this,Settings.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("昵称", username);
+                bundle.putString("useid", username);
                 intent4.putExtras(bundle);
                 startActivity(intent4);
             }
@@ -119,17 +123,37 @@ public class HomeActivity extends AppCompatActivity {
         waterView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final int minute2 = Integer.parseInt(minutePicker.getDisplayedValues()[minutePicker.getValue()]);
-                minute= minute2;
-                totalSec = 60 * minute;
-                recLen = totalSec;
-                waterView.setFlowNum("Start!");
-                waterView.setmWaterLevel(1F);
-                waterView.startWave();
-                handler.postDelayed(runnable, 1000);
-            }
+                if (!isDoing) {
+                    final int minute2 = Integer.parseInt(minutePicker.getDisplayedValues()[minutePicker.getValue()]);
+                    minute = minute2;
+                    totalSec = 60 * minute;
+                    recLen = totalSec;
+                    waterView.setFlowNum("Start!");
+                    waterView.setmWaterLevel(1F);
+                    waterView.startWave();
+                    handler.postDelayed(runnable, 1000);
+                    isDoing = true;
+                } else {
+                    waterView.stopWave();
+                    AlertDialog.Builder dialog =new AlertDialog.Builder(HomeActivity.this);
+                    dialog.setTitle("Abort!");
+                    dialog.setMessage("Abort halfway?");
+                    dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            Intent ret = new Intent(HomeActivity.this, MainActivity.class);
+                            startActivity(ret);
+                            HomeActivity.this.finish();
+                        }
+                    });
+                    dialog.setNegativeButton("No", null);
+                    dialog.show();
+                }
+                }
         });
     }
+
+
     Handler handler = new Handler();
     Runnable runnable = new Runnable() {
         @Override
@@ -145,7 +169,6 @@ public class HomeActivity extends AppCompatActivity {
                 if(second < 10)
                     s = "0" + second;
                 waterView.setFlowNum(m + ":" + s);
-                mytext4.setText(m+":"+s);
                 rate = (float)recLen / totalSec;
                 waterView.setmWaterLevel(rate);
                 handler.postDelayed(this, 1000);
@@ -160,6 +183,7 @@ public class HomeActivity extends AppCompatActivity {
                 notification=mySharedPreference.getInt("notification",2);
                 if(bell){
                     path =new ArrayList<>();
+                    scannerMediaFile();
                     Uri uri=Uri.parse(path.get(notification));
                     MediaPlayer mp = MediaPlayer.create(HomeActivity.this,uri);
                     mp.start();
@@ -180,6 +204,11 @@ public class HomeActivity extends AppCompatActivity {
         while (cursor.moveToNext()) {
             path.add(cursor.getString(1));
         }
+        AlertDialog.Builder dialog =new AlertDialog.Builder(HomeActivity.this);
+        dialog.setTitle("Done");
+        dialog.setMessage("You worked for " + minute + " minutes!");
+        CheckBox cb = new CheckBox(getApplicationContext());
+        cb.setText("Current task done");
     }
 }
 

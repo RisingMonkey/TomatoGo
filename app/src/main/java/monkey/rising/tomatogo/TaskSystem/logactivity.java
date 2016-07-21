@@ -1,6 +1,7 @@
 package monkey.rising.tomatogo.TaskSystem;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -16,6 +17,7 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import monkey.rising.tomatogo.MainActivity.HomeActivity;
 import monkey.rising.tomatogo.R;
 import monkey.rising.tomatogo.dataoperate.UserControl;
 
@@ -57,9 +59,12 @@ public class logactivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(userControl.IsUser(id.getText().toString(),pw.getText().toString())==1){
-                    Toast.makeText(getApplicationContext(),"LOG IN",Toast.LENGTH_SHORT).show();
-                    Intent intent=new Intent(logactivity.this,tasklist.class);
-                    intent.putExtra("userid",id.getText().toString());
+                    Toast.makeText(getApplicationContext(),"登录成功！！",Toast.LENGTH_SHORT).show();
+                    SharedPreferences sharedPreferences = getSharedPreferences("share", AppCompatActivity.MODE_PRIVATE);
+                    SharedPreferences.Editor e = sharedPreferences.edit();
+                    e.putString("userid",id.getText().toString());
+                    e.commit();
+                    Intent intent=new Intent(logactivity.this,HomeActivity.class);
                     startActivity(intent);
 
                 }
