@@ -32,8 +32,8 @@ public class logactivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+       // setSupportActionBar(toolbar);
         log=(Button)findViewById(R.id.log) ;
         reg=(Button)findViewById(R.id.register);
         id=(EditText)findViewById(R.id.userid);
@@ -43,19 +43,6 @@ public class logactivity extends AppCompatActivity {
         userControl.openDataBase();
         userControl.loadUser();
         userControl.closeDb();
-
-
-
-
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
       reg.setOnClickListener(new View.OnClickListener() {
           @Override

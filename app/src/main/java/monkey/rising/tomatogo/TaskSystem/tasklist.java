@@ -37,8 +37,8 @@ public class tasklist extends AppCompatActivity implements RemoveListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+      //  Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+      //  setSupportActionBar(toolbar);
         button=(Button)findViewById(R.id.add) ;
         slide=(slideview) findViewById(R.id.tasklist) ;
         slide.setRemoveListener(this);
@@ -54,20 +54,6 @@ public class tasklist extends AppCompatActivity implements RemoveListener{
         }
         arrayAdapter=new ArrayAdapter<String>(this,R.layout.item,R.id.item,data);
         slide.setAdapter(arrayAdapter);
-
-
-
-
-
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         ArrayList<String> str=new ArrayList<>();
 

@@ -25,8 +25,8 @@ public class regisiter extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_regisiter);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+       // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+       // setSupportActionBar(toolbar);
          reg=(Button)findViewById(R.id.reg) ;
         name=(EditText)findViewById(R.id.name);
         pw1=(EditText)findViewById(R.id.pw1);
@@ -42,8 +42,9 @@ public class regisiter extends AppCompatActivity {
 
                     userControl.openDataBase();
                     userControl.loadUser();
-
-                    if(userControl.IsUser(name.getText().toString(),pw1.getText().toString())==2){
+                    if(name.getText().length()==0||pw1.getText().length()==0){
+                        Toast.makeText(getApplicationContext(),"please in put compelete imformation",Toast.LENGTH_SHORT).show();
+                    }else if(userControl.IsUser(name.getText().toString(),pw1.getText().toString())==2){
                         userControl.insertDate(name.getText().toString(),pw1.getText().toString());
                         userControl.closeDb();
                     Toast.makeText(getApplicationContext(),"register",Toast.LENGTH_SHORT).show();
@@ -58,14 +59,6 @@ public class regisiter extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
     }
 
 }

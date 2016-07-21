@@ -39,7 +39,8 @@ public class AddTask extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+       // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+       // setSupportActionBar(toolbar);
         content=(EditText)findViewById(R.id.content);
         type=(EditText)findViewById(R.id.type);
         time=(EditText)findViewById(R.id.timeexp);
@@ -58,7 +59,6 @@ public class AddTask extends AppCompatActivity {
         id=format.format(new java.util.Date());
        test.setText(id);
 
-        setSupportActionBar(toolbar);
         list=taskControl.gettype(user);
         spinner=(Spinner)findViewById(R.id.spinner) ;
         adapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,list);
@@ -85,7 +85,7 @@ public class AddTask extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (type.getText()!=null&&content.getText()!=null&&time.getText()!=null){
+                if (type.getText().length()!=0&&content.getText().length()!=0&&time.getText().length()!=0){
                 taskControl.openDataBase();
                  taskControl.insertData(id,type.getText().toString(),user,content.getText().toString(),"null",time.getText().toString(),"null",1);
                 taskControl.closeDb();
@@ -104,18 +104,6 @@ public class AddTask extends AppCompatActivity {
                finish();
            }
        });
-
-
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-
-            }
-        });
     }
 
 }
