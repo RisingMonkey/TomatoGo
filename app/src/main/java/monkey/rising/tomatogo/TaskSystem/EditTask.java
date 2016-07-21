@@ -38,8 +38,8 @@ public class EditTask extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_task);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+       // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
         Intent intent1=getIntent();
         id=intent1.getStringExtra("id");
         taskControl=new TaskControl(this);
@@ -73,7 +73,6 @@ public class EditTask extends AppCompatActivity {
 
             }
         });
-        setSupportActionBar(toolbar);
        list=taskControl.gettype(userid);
 
 
@@ -100,14 +99,6 @@ public class EditTask extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
     }
 
 }

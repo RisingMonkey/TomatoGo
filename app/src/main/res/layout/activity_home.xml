@@ -32,18 +32,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="时间设置"
-        android:textSize="50px"
-        android:layout_above="@+id/myimag1"
-        android:layout_toLeftOf="@+id/myimag1"
-        android:layout_toStartOf="@+id/myimag1"
-        android:layout_marginBottom="45dp" />
-    <TextView
-        android:id="@+id/mytext4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/mytext3"
-        android:layout_toRightOf="@+id/mytext3"
-        android:layout_toEndOf="@+id/mytext3" />
+        android:textSize="30dp"
+        android:textIsSelectable="false"
+        android:layout_below="@+id/waterView"
+        android:layout_toLeftOf="@+id/mytext2"
+        android:layout_toStartOf="@+id/mytext2"
+        android:layout_marginTop="30dp" />
+
     <TextView
         android:id="@+id/mytext5"
         android:layout_width="wrap_content"
@@ -55,7 +50,7 @@
         android:layout_toStartOf="@+id/myimag2" />
     <monkey.rising.tomatogo.MainActivity.waterView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="300dp"
         android:id="@+id/waterView"
         android:layout_below="@+id/mytext2"
         android:layout_centerHorizontal="true"

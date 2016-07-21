@@ -12,14 +12,15 @@
     tools:context=".TaskSystem.tasklist"
     tools:showIn="@layout/activity_main2">
 
-    <com.example.lizhangfang.clock.TaskSystem.slideview
+    <monkey.rising.tomatogo.TaskSystem.slideview
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tasklist"
-        android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" >
-    </com.example.lizhangfang.clock.TaskSystem.slideview>
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+    </monkey.rising.tomatogo.TaskSystem.slideview>
 
     <Button
         android:layout_width="50dp"
@@ -27,7 +28,7 @@
         android:text=""
         android:id="@+id/add"
         android:background="@drawable/ic_add_black_24dp"
-        android:layout_marginTop="94dp"
+        android:layout_marginTop="52dp"
         android:layout_below="@+id/tasklist"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>
