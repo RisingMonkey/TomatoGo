@@ -23,6 +23,8 @@ public class StatisticActivity extends AppCompatActivity {
         tabHost.setup();
         tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator("分类统计").setContent(R.id.linearLayout));
         tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator("日常统计").setContent(R.id.linearLayout2));
+        tabHost.getTabWidget().getChildAt(0).getLayoutParams().width = 250;
+        tabHost.getTabWidget().getChildAt(1).getLayoutParams().width = 100;
 
     }
 }

@@ -134,6 +134,11 @@ public class DailyFragment extends Fragment {
 
         ColumnChart.setViewportCalculationEnabled(false);
 
+        Viewport v = new Viewport(0, 5, time.length - 1, 0);
+        Viewport cv = new Viewport(0, 5, 6, 0);
+        ColumnChart.setMaximumViewport(v);
+        ColumnChart.setCurrentViewport(cv);
+
         LineChart.setZoomType(ZoomType.HORIZONTAL);
         ColumnChart.setZoomType(ZoomType.HORIZONTAL);
 
@@ -145,11 +150,6 @@ public class DailyFragment extends Fragment {
                 counter++;
             }
         }
-
-        Viewport v = new Viewport(0, 20, date.length - 1, 0);
-        Viewport cv = new Viewport(0, 20, 14, 0);
-        ColumnChart.setMaximumViewport(v);
-        ColumnChart.setCurrentViewport(cv);
         ColumnChart.startDataAnimation();
 
     }
@@ -178,8 +178,8 @@ public class DailyFragment extends Fragment {
 
         LineChart.setViewportCalculationEnabled(false);
 
-        Viewport v = new Viewport(0, 10, time.length - 1, 0);
-        Viewport cv = new Viewport(0, 10, 6, 0);
+        Viewport v = new Viewport(0, 5, time.length - 1, 0);
+        Viewport cv = new Viewport(0, 5, 6, 0);
         LineChart.setMaximumViewport(v);
         LineChart.setCurrentViewport(cv);
 

@@ -13,15 +13,15 @@ public class Clock {
     int timeexp;
     boolean isdone;
 
-    public Clock(String id,String userid,String taskid,int lasttime,int timeexp,String taskContent,String type){
-        this.id=id;
-        this.userid=userid;
-        this.taskid=taskid;
-        this.lasttime=lasttime;
-        this.timeexp=timeexp;
-        this.taskContent=taskContent;
-        this.type=type;
-        this.isdone=false;
+    public Clock(String id, String userid, String taskid, int lasttime, int timeexp, String taskContent, String type) {
+        this.id = id;
+        this.userid = userid;
+        this.taskid = taskid;
+        this.lasttime = lasttime;
+        this.timeexp = timeexp;
+        this.taskContent = taskContent;
+        this.type = type;
+        this.isdone = false;
     }
 
     public String getId() {
@@ -57,7 +57,7 @@ public class Clock {
     }
 
     public void setIsdone() {
-        this.isdone =false ;
+        this.isdone = false;
     }
 
     public String getTaskContent() {
