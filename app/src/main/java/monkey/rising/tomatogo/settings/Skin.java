@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 
 import monkey.rising.tomatogo.R;
+import monkey.rising.tomatogo.config.Utils;
 
 public class Skin extends AppCompatActivity {
     @Override
@@ -28,6 +29,9 @@ private Button picture;
     private Button theme;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Utils.configSP = getSharedPreferences("textSize",MODE_PRIVATE);
+        int textSizeLevel = Utils.configSP.getInt("textSizeStatus",3);
+        Utils.onActivityCreateSetTheme(this,textSizeLevel);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.skin);

@@ -132,14 +132,8 @@ public class DailyFragment extends Fragment {
         // Set selection mode to keep selected month column highlighted.
         ColumnChart.setValueSelectionEnabled(true);
 
-        ColumnChart.setViewportCalculationEnabled(false);
+        ColumnChart.setViewportCalculationEnabled(true);
 
-        Viewport v = new Viewport(0, 5, time.length - 1, 0);
-        Viewport cv = new Viewport(0, 5, 6, 0);
-        ColumnChart.setMaximumViewport(v);
-        ColumnChart.setCurrentViewport(cv);
-
-        LineChart.setZoomType(ZoomType.HORIZONTAL);
         ColumnChart.setZoomType(ZoomType.HORIZONTAL);
 
         Integer[] num = (Integer[])cc.countbymonth(month,userid).toArray();
@@ -178,8 +172,8 @@ public class DailyFragment extends Fragment {
 
         LineChart.setViewportCalculationEnabled(false);
 
-        Viewport v = new Viewport(0, 5, time.length - 1, 0);
-        Viewport cv = new Viewport(0, 5, 6, 0);
+        Viewport v = new Viewport(0, 10, time.length - 1, 0);
+        Viewport cv = new Viewport(0, 10, 6, 0);
         LineChart.setMaximumViewport(v);
         LineChart.setCurrentViewport(cv);
 

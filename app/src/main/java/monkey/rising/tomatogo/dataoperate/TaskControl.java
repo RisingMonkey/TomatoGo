@@ -134,16 +134,14 @@ public class TaskControl {
      types.add("工作");
      types.add("其他");
      Log.e("isempty:",""+tasks.isEmpty());
-     if(!tasks.isEmpty()) {
-         for (Task task : tasks) {
-            // Log.e("taskuserid:", task.getUserid());
+     for (Task task : tasks) {
+         if (task.getUserid() != null) {
              if (task.getUserid().equals(user)) {
                  if (Istype(types, task.getType())) {
                      types.add(task.getType());
                  }
              }
          }
-        // Log.e("types:", types.toString());
      }
      return types;
   }

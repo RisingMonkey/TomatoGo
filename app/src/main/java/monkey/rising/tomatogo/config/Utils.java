@@ -12,8 +12,8 @@ import monkey.rising.tomatogo.R;
 public class Utils {
    // static int textSizeStatus=2;
     //static int progressValue=25;
-    static SharedPreferences configSP;
-    static SharedPreferences.Editor editor;
+    public static SharedPreferences configSP;
+    public static SharedPreferences.Editor editor;
     public static void changeTheme(Activity activity){
         activity.finish();
         activity.startActivity(new Intent(activity, activity.getClass()));

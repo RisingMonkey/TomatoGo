@@ -16,6 +16,7 @@ public class ConfigView extends AppCompatActivity {
     Switch bell;
     Switch light;
     Switch fullScreen;
+
     //ImageView bellImage;
     LinearLayout textSizeChange;
     LinearLayout aboutUs;
@@ -26,7 +27,7 @@ public class ConfigView extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Utils.configSP = getSharedPreferences("textSize",MODE_PRIVATE);
-        int textSizeLevel = Utils.configSP.getInt("textSizeStatus",2);
+        int textSizeLevel = Utils.configSP.getInt("textSizeStatus",3);
         Utils.onActivityCreateSetTheme(this,textSizeLevel);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_config_view);
@@ -42,6 +43,24 @@ public class ConfigView extends AppCompatActivity {
         aboutHint = (TextView)findViewById(R.id.about_us_hint);
         bellText = (TextView)findViewById(R.id.bell_text);
         setInitialState();
+/*        Utils.configSP = getSharedPreferences("Setting",MODE_PRIVATE);
+        boolean screenOn = Utils.configSP.getBoolean("lightOn",false);
+        boolean fullScreen = Utils.configSP.getBoolean("fullScreen",true);
+        if (screenOn){
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        }
+        else{
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        }
+        if(fullScreen){
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }else{
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }
+           Utils.configSP = getSharedPreferences("textSize",MODE_PRIVATE);
+        int textSizeLevel = Utils.configSP.getInt("textSizeStatus",3);
+        Utils.onActivityCreateSetTheme(this,textSizeLevel);
+        */
         changeContentBasedOnSize(textSizeLevel);
         shake.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -194,5 +213,4 @@ public class ConfigView extends AppCompatActivity {
             fullScreen.setChecked(false);
         }
     }
-
 }

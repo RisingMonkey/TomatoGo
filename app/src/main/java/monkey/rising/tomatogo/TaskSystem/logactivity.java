@@ -68,7 +68,7 @@ public class logactivity extends AppCompatActivity {
                     startActivity(intent);
 
                 }
-                else { Toast.makeText(getApplicationContext(),"LOG fail",Toast.LENGTH_SHORT).show();
+                else { Toast.makeText(getApplicationContext(),"登录失败",Toast.LENGTH_SHORT).show();
                 }
             }
         });

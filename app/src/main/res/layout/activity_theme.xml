@@ -35,7 +35,6 @@
         android:layout_below="@+id/title"
         android:layout_alignParentStart="true"
         android:layout_marginTop="59dp"
-        android:textSize="20dp"
         android:layout_marginLeft="16dp"/>
 
     <RadioButton
@@ -45,7 +44,6 @@
         android:id="@+id/white"
         android:layout_below="@+id/yellow"
         android:layout_alignParentStart="true"
-        android:textSize="20dp"
         android:layout_marginLeft="16dp"/>
 
     <RadioButton
@@ -55,7 +53,6 @@
         android:id="@+id/grey"
         android:layout_below="@+id/white"
         android:layout_alignParentStart="true"
-        android:textSize="20dp"
         android:layout_marginLeft="16dp"/>
 
     <RadioButton
@@ -65,7 +62,6 @@
         android:id="@+id/lightblue"
         android:layout_below="@+id/grey"
         android:layout_alignParentStart="true"
-        android:textSize="20dp"
         android:layout_marginLeft="16dp"/>
     </RadioGroup>
 
@@ -80,7 +76,7 @@
         android:background="@android:color/transparent"
         android:drawableLeft="@mipmap/theme1"
         android:textAlignment="textStart"
-        android:textSize="20dp" />
+        />
 
 
 

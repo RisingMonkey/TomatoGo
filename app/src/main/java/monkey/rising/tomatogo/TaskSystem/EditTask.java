@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import monkey.rising.tomatogo.MainActivity.HomeActivity;
 import monkey.rising.tomatogo.R;
 import monkey.rising.tomatogo.dataoperate.Task;
 import monkey.rising.tomatogo.dataoperate.TaskControl;
@@ -27,7 +28,7 @@ public class EditTask extends AppCompatActivity {
     Spinner spinner;
     String userid;
     String mytype;
-        Button submit;
+    Button submit;
     Button start;
     TaskControl taskControl;
     private List<String> list=new ArrayList<String>();
@@ -71,6 +72,14 @@ public class EditTask extends AppCompatActivity {
                 i.putExtra("userid",userid);
                 startActivity(i);
 
+            }
+        });
+        start.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(EditTask.this, HomeActivity.class);
+                intent.putExtra("taskid",id);
+                startActivity(intent);
             }
         });
        list=taskControl.gettype(userid);

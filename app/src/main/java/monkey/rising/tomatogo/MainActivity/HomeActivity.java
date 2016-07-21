@@ -19,7 +19,6 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -28,7 +27,6 @@ import java.util.Date;
 import monkey.rising.tomatogo.R;
 import monkey.rising.tomatogo.TaskSystem.logactivity;
 import monkey.rising.tomatogo.TaskSystem.tasklist;
-import monkey.rising.tomatogo.dataoperate.Clock;
 import monkey.rising.tomatogo.dataoperate.ClockControl;
 import monkey.rising.tomatogo.dataoperate.Task;
 import monkey.rising.tomatogo.dataoperate.TaskControl;
@@ -55,7 +53,7 @@ public class HomeActivity extends AppCompatActivity {
     private TextView mytext5;
     private ImageView taskImage;
     private ImageView settingsImage;
-    private ImageView myimag3;
+    private ImageView imageView;
     private Vibrator vibrator;
     private SharedPreferences mySharedPreference;
     private ArrayList<String> path;
@@ -73,29 +71,30 @@ public class HomeActivity extends AppCompatActivity {
         this.mytext3 = (TextView) super.findViewById(R.id.mytext3);
         this.minutePicker = (NumberPicker) super.findViewById(R.id.minutePicker);
         this.mytext5 = (TextView) super.findViewById(R.id.mytext5);
-        this.taskImage = (ImageView) super.findViewById(R.id.myimag1);
-        this.settingsImage = (ImageView) super.findViewById(R.id.myimag2);
-        this.myimag3 = (ImageView) super.findViewById(R.id.myimag3);
+        this.taskImage = (ImageView) super.findViewById(R.id.imageView2);
+        this.settingsImage = (ImageView) super.findViewById(R.id.imageView3);
+        this.imageView = (ImageView) super.findViewById(R.id.imageView1);
         this.vibrator = (Vibrator) super.getApplication().getSystemService(Service.VIBRATOR_SERVICE);
 
         waterView.setFlowNum("选择番茄钟时间");
         waterView.setmWaterLevel(1.0f);
         //获取当前任务
-//        Intent taskChangedIntent = getIntent();
-//        Bundle taskExtras = taskChangedIntent.getExtras();
-//        curTask = taskExtras.getString("task");
-        if(curTask==null){
+        Intent taskChangedIntent = getIntent();
+        Bundle taskExtras = taskChangedIntent.getExtras();
+        if (taskExtras != null)
+            curTask = taskExtras.getString("taskid");
+        if (curTask == null) {
             curTask = "eat";
         }
         TaskControl tc = new TaskControl(this);
-        tc.openDataBase();;
+        tc.openDataBase();
         tc.loadTask();
         tc.closeDb();
         currentTask = tc.findByTaskId(curTask);
 
         //获取用户名，未登录则默认名为“monkey”
         mySharedPreference = getSharedPreferences("share", MODE_PRIVATE);
-        username =  mySharedPreference.getString("userid","monkey");
+        username = mySharedPreference.getString("userid", "monkey");
         if (username.equals("monkey")) {
             //未登录点击文字跳转至登录界面，否则跳转至个人信息界面
             userTextView.setText("登录/注册");
@@ -119,7 +118,7 @@ public class HomeActivity extends AppCompatActivity {
             });
         }
 
-        currentTaskTextView.setText(curTask);
+        currentTaskTextView.setText("当前任务：" + ((currentTask == null) ? "空闲" : currentTask.getContent().toString()));
         currentTaskTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -155,7 +154,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        String[] gaps = {"5", "10", "15", "20", "25", "30"};
+        String[] gaps = {"0", "5", "10", "15", "20", "25", "30"};
         minutePicker.setDisplayedValues(gaps);
         minutePicker.setMaxValue(gaps.length - 1);
         minutePicker.setMinValue(0);
@@ -163,9 +162,9 @@ public class HomeActivity extends AppCompatActivity {
         waterView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!isDoing) {
+                if (!isDoing) {
                     TomatoGo(Integer.parseInt(minutePicker.getDisplayedValues()[minutePicker.getValue()]));
-                }else {
+                } else {
                     AlertDialog.Builder dialog = new AlertDialog.Builder(HomeActivity.this);
                     dialog.setTitle("半途而废？");
                     dialog.setMessage("确定放弃本次番茄钟？");
@@ -213,11 +212,11 @@ public class HomeActivity extends AppCompatActivity {
                 handler.postDelayed(this, 1000);
             } else {
                 mySharedPreference = getSharedPreferences("Settings", MODE_PRIVATE);
-                shake =  mySharedPreference.getBoolean("shake",false );
+                shake = mySharedPreference.getBoolean("shake", true);
                 if (shake) {
                     HomeActivity.this.vibrator.vibrate(new long[]{1000, 10, 1000, 100}, 0);//震动服务
                 }
-                bell =  mySharedPreference.getBoolean("bell", false);
+                bell = mySharedPreference.getBoolean("bell", true);
                 notification = mySharedPreference.getInt("notification", 2);
                 if (bell) {
                     path = new ArrayList<>();
@@ -226,6 +225,30 @@ public class HomeActivity extends AppCompatActivity {
                     MediaPlayer mp = MediaPlayer.create(HomeActivity.this, uri);
                     mp.start();
                 }
+                AlertDialog.Builder dialog = new AlertDialog.Builder(HomeActivity.this);
+                dialog.setTitle("番茄完成");
+                dialog.setMessage("你工作了" + totalSec / 60 + " 分钟!");
+                CheckBox cb = new CheckBox(getApplicationContext());
+                String content;
+                if (currentTask == null)
+                    content = "Task";
+                else
+                    content = currentTask.getContent();
+                cb.setText("任务：" + content + "完成");
+                dialog.setView(cb);
+                dialog.setPositiveButton("放松一下☺(5min)", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        TomatoGo(5);
+                    }
+                });
+                dialog.setNegativeButton("继续工作", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        TomatoGo(Integer.parseInt(minutePicker.getDisplayedValues()[minutePicker.getValue()]));
+                    }
+                });
+                dialog.show();
             }
         }
     };
@@ -243,37 +266,21 @@ public class HomeActivity extends AppCompatActivity {
         while (cursor.moveToNext()) {
             path.add(cursor.getString(1));
         }
-        AlertDialog.Builder dialog = new AlertDialog.Builder(HomeActivity.this);
-        dialog.setTitle("番茄完成");
-        dialog.setMessage("你工作了" + totalSec/60 + " 分钟!");
-        CheckBox cb = new CheckBox(getApplicationContext());
-        cb.setText("任务：" + currentTask.getContent() + "完成");
-        dialog.setView(cb);
-        dialog.setPositiveButton("放松一下☺(5min)", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                TomatoGo(5);
-            }
-        });
-        dialog.setNegativeButton("继续工作", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                TomatoGo(Integer.parseInt(minutePicker.getDisplayedValues()[minutePicker.getValue()]));
-            }
-        });
-        dialog.show();
     }
 
-    private void TomatoGo(int mt){
-            startTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-            minute = mt;
-            totalSec = 60 * minute;
-            recLen = totalSec;
-            waterView.setFlowNum("Start!");
-            waterView.setmWaterLevel(1F);
-            waterView.startWave();
-            handler.postDelayed(runnable, 1000);
-            isDoing = true;
+    private void TomatoGo(int mt) {
+        startTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+        minute = mt;
+        totalSec = 60 * minute;
+        if (totalSec == 0)
+            totalSec = 5;
+        recLen = totalSec;
+        waterView.setFlowNum("Start!");
+        waterView.setmWaterLevel(1F);
+        waterView.startWave();
+        isDoing = true;
+        Thread t = new Thread(runnable);
+        t.start();
     }
 }
 

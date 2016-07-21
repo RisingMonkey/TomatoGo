@@ -9,6 +9,7 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 
 import monkey.rising.tomatogo.R;
+import monkey.rising.tomatogo.config.Utils;
 
 public class Theme extends AppCompatActivity {
     private RadioButton white;
@@ -19,6 +20,9 @@ public class Theme extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Utils.configSP = getSharedPreferences("textSize",MODE_PRIVATE);
+        int textSizeLevel = Utils.configSP.getInt("textSizeStatus",3);
+        Utils.onActivityCreateSetTheme(this,textSizeLevel);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_theme);
 
