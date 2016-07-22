@@ -16,14 +16,14 @@ import java.util.ArrayList;
 public class TaskControl {
     ArrayList<Task> tasks=new ArrayList<>();
     private SQLiteDatabase db;
-    private TDH tdh;
+    private BDH tdh;
     private Context context;
     public TaskControl(Context context){
         this.context=context;
     }
 
     public void openDataBase(){
-        tdh=new TDH(context,"Task.db",null,1);
+        tdh=new BDH(context,"data.db",null,1);
         try{
             db=tdh.getWritableDatabase();
         }catch (SQLException e){

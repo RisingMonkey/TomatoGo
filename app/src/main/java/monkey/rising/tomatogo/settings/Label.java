@@ -3,6 +3,7 @@ package monkey.rising.tomatogo.settings;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -10,6 +11,7 @@ import android.widget.RelativeLayout;
 import java.util.ArrayList;
 
 import monkey.rising.tomatogo.R;
+import monkey.rising.tomatogo.config.Utils;
 import monkey.rising.tomatogo.dataoperate.TaskControl;
 
 public class Label extends AppCompatActivity {
@@ -20,6 +22,23 @@ public class Label extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Utils.configSP = getSharedPreferences("Settings",MODE_PRIVATE);
+        boolean screenOn = Utils.configSP.getBoolean("lightOn",false);
+        boolean fullScreen = Utils.configSP.getBoolean("fullScreen",true);
+        if (screenOn){
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        }
+        else{
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        }
+        if(fullScreen){
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }else{
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }
+        Utils.configSP = getSharedPreferences("textSize",MODE_PRIVATE);
+        int textSizeLevel = Utils.configSP.getInt("textSizeStatus",3);
+        Utils.onActivityCreateSetTheme(this,textSizeLevel);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_label);
         taskControl=new TaskControl(this);

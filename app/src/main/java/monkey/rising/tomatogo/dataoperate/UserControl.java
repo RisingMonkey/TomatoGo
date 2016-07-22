@@ -8,15 +8,13 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 
-import monkey.rising.tomatogo.dataoperate.UDH;
-
 /**
  * Created by lizhangfang on 2016/7/13.
  */
 public class UserControl {
 
     private SQLiteDatabase database;
-   private UDH udh;
+   private BDH udh;
     private Context context;
     ArrayList<User> users=new ArrayList<>();
 
@@ -29,7 +27,7 @@ public class UserControl {
 
 
      public void openDataBase(){
-    udh=new UDH(context,"User.db",null,1);
+    udh=new BDH(context,"data.db",null,1);
     try{
         database=udh.getWritableDatabase();
     }catch (SQLException e){

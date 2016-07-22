@@ -6,7 +6,10 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -15,6 +18,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import monkey.rising.tomatogo.R;
+import monkey.rising.tomatogo.config.Utils;
 import monkey.rising.tomatogo.dataoperate.TaskControl;
 
 import java.text.SimpleDateFormat;
@@ -28,7 +32,6 @@ public class AddTask extends AppCompatActivity {
     private EditText time;
     private Spinner spinner;
     private ArrayAdapter<String> adapter;
-    private EditText test;
     private Button submit;
     private Button back;
     private String id;
@@ -37,7 +40,27 @@ public class AddTask extends AppCompatActivity {
     public TaskControl taskControl;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Utils.configSP = getSharedPreferences("Settings",MODE_PRIVATE);
+        boolean screenOn = Utils.configSP.getBoolean("lightOn",false);
+        boolean fullScreen = Utils.configSP.getBoolean("fullScreen",true);
+        if (screenOn){
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        }
+        else{
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        }
+        if(fullScreen){
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }else{
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }
+        Utils.configSP = getSharedPreferences("textSize",MODE_PRIVATE);
+        int textSizeLevel = Utils.configSP.getInt("textSizeStatus",3);
+        Utils.onActivityCreateSetTheme(this,textSizeLevel);
+
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.activity_add_task);
        // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
        // setSupportActionBar(toolbar);
@@ -53,11 +76,17 @@ public class AddTask extends AppCompatActivity {
         Intent intent=getIntent();
         user=intent.getStringExtra("userid");
 
-
-        test=(EditText)findViewById(R.id.id);
+        content.setFilters(new InputFilter[]{new InputFilter() {
+            @Override
+            public CharSequence filter(CharSequence charSequence, int i, int i1, Spanned spanned, int i2, int i3) {
+                if(charSequence.equals(" ")||charSequence.equals("\n"))
+                    return "";
+                else
+                    return null;
+            }
+        }});
         SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         id=format.format(new java.util.Date());
-       test.setText(id);
 
         list=taskControl.gettype(user);
         spinner=(Spinner)findViewById(R.id.spinner) ;

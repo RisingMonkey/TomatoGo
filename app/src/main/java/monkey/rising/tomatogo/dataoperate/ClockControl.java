@@ -18,17 +18,17 @@ import java.util.Date;
 public class ClockControl {
     ArrayList<Clock> clocks=new ArrayList<>();
     private SQLiteDatabase db;
-    private CDH cdh;
+    private BDH BDH;
     private Context context;
     public ClockControl(Context context){
         this.context=context;
     }
     public void openDataBase(){
-        cdh=new CDH(context,"Clock.db",null,1);
+        BDH =new BDH(context,"data.db",null,1);
         try{
-            db=cdh.getWritableDatabase();
+            db= BDH.getWritableDatabase();
         }catch (SQLException e){
-            db=cdh.getReadableDatabase();
+            db= BDH.getReadableDatabase();
         }
     }
     public void closeDb(){
@@ -55,7 +55,7 @@ public class ClockControl {
     public  int getDayByMonth(int year,int month){
         Calendar c=Calendar.getInstance();
         c.set(Calendar.YEAR,year);
-        c.set(Calendar.MONTH,month-1);
+        c.set(Calendar.MONTH,month);
         c.set(Calendar.DATE,1);
         c.roll(Calendar.DATE,-1);
         int day=c.get(Calendar.DATE);
@@ -68,7 +68,9 @@ public class ClockControl {
 
         ArrayList<Integer> result=new ArrayList<>();
         Calendar c=Calendar.getInstance();
-        String day = "" + m;
+        String day = "2016-" + m;
+        if(m<10)
+            day = "2016-0" + m;
         Date d=new SimpleDateFormat("yyyy-MM").parse(day);
         c.setTime(d);
         int year=c.get(Calendar.YEAR);
@@ -76,10 +78,12 @@ public class ClockControl {
         c.set(Calendar.DAY_OF_MONTH,1);
         for (int i=0;i< getDayByMonth(year,month);i++){
             Date date=c.getTime();
+            c.add(c.DATE,1);
             String s=new SimpleDateFormat("yyyy-MM-dd").format(date);
             int j=findbyday(s,user).size();
             result.add(j);
         }
+        Log.e("count:",m + " day:" + result.size());
         return result;
     }
 
@@ -145,14 +149,31 @@ public class ClockControl {
         return clocksbyuser;
     }
 
-    public long insertOneClock(String id,String userid,String taskid,int lasttime,int timeexp,boolean isDone){
+    public int getDoneNum(String user){
+        int res = 0;
+        for(Clock clock:findbyuser(user)){
+            if(clock.isdone())
+                res++;
+        }
+        return res;
+    }
+    public int getUndoneNum(String user){
+        int res = 0;
+        for(Clock clock:findbyuser(user)){
+            if(!clock.isdone())
+                res++;
+        }
+        return res;
+    }
+
+    public long insertOneClock(String id,String userid,String taskid,int lasttime,int timeexp,Boolean isDone){
         ContentValues values=new ContentValues();
         values.put("id",id);
         values.put("username",userid);
         values.put("taskid",taskid);
         values.put("lasttime",lasttime);
         values.put("timeexp",timeexp);
-        values.put("isdone",isDone);
+        values.put("isdone",isDone.toString());
 
         TaskControl tc = new TaskControl(context);
         tc.openDataBase();

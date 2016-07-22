@@ -16,9 +16,10 @@
         android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:id="@+id/spinner"
-        android:layout_below="@+id/content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignBaseline="@+id/content"
+        android:layout_alignBottom="@+id/content"
+        android:layout_toLeftOf="@+id/timeexp"
+        android:layout_toStartOf="@+id/timeexp" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -28,8 +29,8 @@
         android:id="@+id/content"
         android:hint="content"
         android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/timeexp"
-        android:layout_alignStart="@+id/timeexp" />
+        android:layout_toRightOf="@+id/spinner"
+        android:layout_toEndOf="@+id/spinner" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -39,34 +40,6 @@
         android:id="@+id/timeexp"
         android:hint="time expected"
         android:layout_below="@+id/type"
-        android:layout_alignLeft="@+id/spinner"
-        android:layout_alignStart="@+id/spinner" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/type"
-        android:layout_alignTop="@+id/spinner"
-        android:layout_toRightOf="@+id/spinner"
-        android:layout_toEndOf="@+id/spinner" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="submit"
-        android:id="@+id/submit"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="back"
-        android:id="@+id/back"
-        android:layout_alignTop="@+id/submit"
         android:layout_centerHorizontal="true" />
 
     <EditText
@@ -74,8 +47,26 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:id="@+id/id"
-        android:layout_below="@+id/timeexp"
+        android:id="@+id/type"
+        android:layout_below="@+id/content"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="submit"
+        android:id="@+id/submit"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/spinner"
+        android:layout_toEndOf="@+id/spinner"
+        android:layout_marginBottom="60dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="back"
+        android:id="@+id/back"
+        android:layout_alignTop="@+id/submit"
         android:layout_alignRight="@+id/timeexp"
         android:layout_alignEnd="@+id/timeexp" />
 

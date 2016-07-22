@@ -13,6 +13,7 @@ public class Clock {
     int timeexp;
     boolean isdone;
 
+
     public Clock(String id, String userid, String taskid, int lasttime, int timeexp, String taskContent, String type) {
         this.id = id;
         this.userid = userid;
@@ -56,8 +57,12 @@ public class Clock {
         this.taskid = taskid;
     }
 
+    public boolean isdone() {
+        return isdone;
+    }
+
     public void setIsdone() {
-        this.isdone = false;
+        this.isdone = true;
     }
 
     public String getTaskContent() {
@@ -83,4 +88,6 @@ public class Clock {
     public int getTimeexp() {
         return timeexp;
     }
+
+
 }
