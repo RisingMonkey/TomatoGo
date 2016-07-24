@@ -22,18 +22,22 @@
         android:hint="请输入用户名"
         android:layout_marginTop="119dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:singleLine="true" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/pw1"
         android:layout_below="@+id/name"
         android:layout_alignLeft="@+id/name"
         android:hint="请输入密码"
-        android:layout_alignStart="@+id/name" />
+        android:layout_alignStart="@+id/name"
+        android:inputType="textPassword"
+        android:contextClickable="false"
+        android:digits="@string/password"
+        android:singleLine="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -44,7 +48,10 @@
         android:layout_below="@+id/pw1"
         android:layout_alignLeft="@+id/pw1"
         android:hint="确认密码"
-        android:layout_alignStart="@+id/pw1" />
+        android:layout_alignStart="@+id/pw1"
+        android:digits="@string/password"
+        android:contextClickable="false"
+        android:singleLine="true" />
 
     <Button
         android:layout_width="wrap_content"

@@ -10,83 +10,105 @@
     tools:context="monkey.rising.tomatogo.MainActivity.HomeActivity">
 
     <TextView
-        android:id="@+id/mytext1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="登录/注册"
-        android:textSize="50px"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-    <TextView
         android:id="@+id/mytext2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:text="当前任务"
-        android:textSize="50px"
-        android:layout_below="@+id/mytext1"
-        android:layout_centerHorizontal="true" />
+
+        android:layout_below="@+id/imageView4"
+        android:layout_toRightOf="@+id/mytext3"
+        android:layout_toEndOf="@+id/mytext3" />
 
     <TextView
         android:id="@+id/mytext3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="时间设置"
-        android:textSize="20dp"
-        android:textIsSelectable="false"
-        android:layout_above="@+id/myimag3"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+
+        android:layout_alignTop="@+id/minutePicker"
+        android:layout_toRightOf="@+id/imageView4"
+        android:layout_toEndOf="@+id/imageView4"
+        android:layout_marginTop="73dp" />
 
     <TextView
         android:id="@+id/mytext5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="min"
-        android:textSize="50px"
-        android:layout_alignBottom="@+id/minutePicker"
-        android:layout_toLeftOf="@+id/myimag2"
-        android:layout_toStartOf="@+id/myimag2" />
+        android:layout_alignTop="@+id/mytext3"
+        android:layout_toRightOf="@+id/minutePicker"
+        android:layout_toEndOf="@+id/minutePicker" />
+
     <monkey.rising.tomatogo.MainActivity.waterView
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="match_parent"
         android:id="@+id/waterView"
         android:layout_below="@+id/mytext2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="39dp" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/myimag1"
-        android:src="@drawable/ic_insert_drive_file_black_50dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/myimag2"
-        android:src="@drawable/ic_account_circle_black_50dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/myimag3"
-        android:src="@drawable/ic_home_black_50dp"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView4"
+            android:src="@drawable/ic_account_circle_black_30dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"/>
+
+        <TextView
+            android:id="@+id/mytext1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="登录/注册"
+
+            android:layout_toRightOf="@id/imageView4" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView5"
+        android:src="@drawable/ic_mode_edit_black_30dp"
+        android:layout_above="@+id/waterView"
+        android:layout_toRightOf="@+id/mytext2" />
 
     <NumberPicker
         android:id="@+id/minutePicker"
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_alignBottom="@+id/mytext3"
-        android:layout_alignRight="@+id/mytext2"
-        android:layout_alignEnd="@+id/mytext2" />
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/frameLayout"
+        android:layout_centerHorizontal="true" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:id="@+id/frameLayout"
+        android:touchscreenBlocksFocus="false"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="false">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView1"
+            android:src="@drawable/ic_home_black_30dp"
+            android:layout_gravity="left|center_vertical" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView2"
+            android:src="@drawable/ic_insert_drive_file_black_30dp"
+            android:layout_gravity="center" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView3"
+            android:src="@drawable/ic_account_box_black_30dp"
+            android:layout_gravity="right|center_vertical" />
+    </FrameLayout>
 
 </RelativeLayout>

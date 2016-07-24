@@ -198,7 +198,7 @@ public class waterView extends View {
         // 得到控件的宽高
         int width = getWidth();
         int height = getHeight();
-        setBackgroundColor(Color.GRAY);
+        setBackgroundColor(Color.WHITE);
 
         //计算当前油量线和水平中线的距离
         float centerOffset = Math.abs(mScreenWidth / 2 * mWaterLevel - mScreenWidth / 4);

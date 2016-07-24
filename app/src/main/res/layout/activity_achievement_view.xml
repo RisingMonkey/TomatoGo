@@ -27,7 +27,7 @@
         android:id="@+id/achievement_image1"
         android:layout_width="160dp"
         android:layout_height="90dp"
-        android:src="@mipmap/ic_launcher"
+        android:src="@android:drawable/ic_lock_idle_alarm"
         android:layout_gravity="center_horizontal|bottom"
         android:layout_below="@+id/my_achievements"
         android:layout_alignParentLeft="true"

@@ -20,13 +20,12 @@
     <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/theme2"
-        android:layout_alignBottom="@+id/lightblue"
-        android:layout_alignEnd="@+id/yellow"
-        android:layout_alignStart="@+id/yellow"
         android:touchscreenBlocksFocus="true"
         android:id="@+id/radiogroup"
-        android:measureWithLargestChild="true">
+        android:measureWithLargestChild="true"
+        android:layout_below="@+id/theme2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
     <RadioButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -35,7 +34,6 @@
         android:layout_below="@+id/title"
         android:layout_alignParentStart="true"
         android:layout_marginTop="59dp"
-        android:textSize="20dp"
         android:layout_marginLeft="16dp"/>
 
     <RadioButton
@@ -45,7 +43,6 @@
         android:id="@+id/white"
         android:layout_below="@+id/yellow"
         android:layout_alignParentStart="true"
-        android:textSize="20dp"
         android:layout_marginLeft="16dp"/>
 
     <RadioButton
@@ -55,7 +52,6 @@
         android:id="@+id/grey"
         android:layout_below="@+id/white"
         android:layout_alignParentStart="true"
-        android:textSize="20dp"
         android:layout_marginLeft="16dp"/>
 
     <RadioButton
@@ -65,7 +61,6 @@
         android:id="@+id/lightblue"
         android:layout_below="@+id/grey"
         android:layout_alignParentStart="true"
-        android:textSize="20dp"
         android:layout_marginLeft="16dp"/>
     </RadioGroup>
 
@@ -80,7 +75,7 @@
         android:background="@android:color/transparent"
         android:drawableLeft="@mipmap/theme1"
         android:textAlignment="textStart"
-        android:textSize="20dp" />
+        />
 
 
 

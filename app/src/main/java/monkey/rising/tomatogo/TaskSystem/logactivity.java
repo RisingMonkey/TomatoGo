@@ -7,10 +7,13 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputFilter;
 import android.text.InputType;
+import android.text.Spanned;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -19,6 +22,7 @@ import android.widget.Toast;
 
 import monkey.rising.tomatogo.MainActivity.HomeActivity;
 import monkey.rising.tomatogo.R;
+import monkey.rising.tomatogo.config.Utils;
 import monkey.rising.tomatogo.dataoperate.UserControl;
 
 public class logactivity extends AppCompatActivity {
@@ -31,6 +35,21 @@ public class logactivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Utils.configSP = getSharedPreferences("Settings",MODE_PRIVATE);
+        boolean screenOn = Utils.configSP.getBoolean("lightOn",false);
+        boolean fullScreen = Utils.configSP.getBoolean("fullScreen",true);
+        if (screenOn){
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        }
+        else{
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        }
+        if(fullScreen){
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }else{
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }
+
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -46,6 +65,15 @@ public class logactivity extends AppCompatActivity {
         userControl.loadUser();
         userControl.closeDb();
 
+        id .setFilters(new InputFilter[]{new InputFilter() {
+            @Override
+            public CharSequence filter(CharSequence charSequence, int i, int i1, Spanned spanned, int i2, int i3) {
+                if(charSequence.equals(" ")||charSequence.equals("\n"))
+                    return "";
+                else
+                    return null;
+            }
+        }});
       reg.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View v) {
@@ -68,7 +96,7 @@ public class logactivity extends AppCompatActivity {
                     startActivity(intent);
 
                 }
-                else { Toast.makeText(getApplicationContext(),"LOG fail",Toast.LENGTH_SHORT).show();
+                else { Toast.makeText(getApplicationContext(),"登录失败",Toast.LENGTH_SHORT).show();
                 }
             }
         });

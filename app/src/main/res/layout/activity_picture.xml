@@ -26,7 +26,6 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/title"
         android:layout_alignParentEnd="true"
-        android:textSize="20dp"
         android:drawableLeft="@mipmap/skin"
         android:textAlignment="textStart"
         android:background="@android:color/transparent"/>

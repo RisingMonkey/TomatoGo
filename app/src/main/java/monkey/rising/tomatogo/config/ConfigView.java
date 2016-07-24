@@ -1,10 +1,13 @@
 package monkey.rising.tomatogo.config;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.provider.ContactsContract;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.*;
@@ -16,6 +19,7 @@ public class ConfigView extends AppCompatActivity {
     Switch bell;
     Switch light;
     Switch fullScreen;
+
     //ImageView bellImage;
     LinearLayout textSizeChange;
     LinearLayout aboutUs;
@@ -23,10 +27,12 @@ public class ConfigView extends AppCompatActivity {
     TextView textSizeHint;
     TextView aboutHint;
     TextView bellText;
+    int screenOnClickCount = 0;
+    int fullScreenOnClickCount = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Utils.configSP = getSharedPreferences("textSize",MODE_PRIVATE);
-        int textSizeLevel = Utils.configSP.getInt("textSizeStatus",2);
+        int textSizeLevel = Utils.configSP.getInt("textSizeStatus",3);
         Utils.onActivityCreateSetTheme(this,textSizeLevel);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_config_view);
@@ -42,6 +48,24 @@ public class ConfigView extends AppCompatActivity {
         aboutHint = (TextView)findViewById(R.id.about_us_hint);
         bellText = (TextView)findViewById(R.id.bell_text);
         setInitialState();
+/*        Utils.configSP = getSharedPreferences("Settings",MODE_PRIVATE);
+        boolean screenOn = Utils.configSP.getBoolean("lightOn",false);
+        boolean fullScreen = Utils.configSP.getBoolean("fullScreen",true);
+        if (screenOn){
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        }
+        else{
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        }
+        if(fullScreen){
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }else{
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }
+           Utils.configSP = getSharedPreferences("textSize",MODE_PRIVATE);
+        int textSizeLevel = Utils.configSP.getInt("textSizeStatus",3);
+        Utils.onActivityCreateSetTheme(this,textSizeLevel);
+        */
         changeContentBasedOnSize(textSizeLevel);
         shake.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -87,11 +111,13 @@ public class ConfigView extends AppCompatActivity {
                     Utils.editor.putBoolean("lightOn",true);
                     Utils.editor.commit();
                     getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+                    screenOnClickCount++;
 
                 } else {
                     Utils.editor.putBoolean("lightOn",false);
                     Utils.editor.commit();
                     getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+                    screenOnClickCount++;
                 }
             }
        });
@@ -105,11 +131,13 @@ public class ConfigView extends AppCompatActivity {
                     Utils.editor.putBoolean("fullScreen",true);
                     Utils.editor.commit();
                     getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                    fullScreenOnClickCount++;
                 }
                 else{
                     Utils.editor.putBoolean("fullScreen",false);
                     Utils.editor.commit();
                     getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                    fullScreenOnClickCount++;
                 }
 
             }
@@ -167,6 +195,35 @@ public class ConfigView extends AppCompatActivity {
         }
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+       if(keyCode==KeyEvent.KEYCODE_BACK){
+           if((fullScreenOnClickCount%2==1)||(screenOnClickCount%2==1)){
+           AlertDialog.Builder dialog = new AlertDialog.Builder(ConfigView.this);
+           dialog.setTitle("注意");
+           dialog.setMessage("您需要保存这些设置吗？");
+           dialog.setCancelable(false);
+           dialog.setPositiveButton("是", new DialogInterface.OnClickListener() {
+               @Override
+               public void onClick(DialogInterface dialogInterface, int i) {
+                   Utils.restartApp(ConfigView.this);
+               }
+           });
+           dialog.setNegativeButton("否", new DialogInterface.OnClickListener() {
+               @Override
+               public void onClick(DialogInterface dialogInterface, int i) {
+                  finish();
+               }
+           });
+           dialog.show();}
+
+           else{
+               finish();
+           }
+       }
+        return false;
+    }
+
     private void setInitialState(){
         Utils.configSP = getSharedPreferences("Settings",MODE_PRIVATE);
         boolean shakeStatus = Utils.configSP.getBoolean("shake",true);
@@ -194,5 +251,4 @@ public class ConfigView extends AppCompatActivity {
             fullScreen.setChecked(false);
         }
     }
-
 }

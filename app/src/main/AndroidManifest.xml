@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="monkey.rising.tomatogo">
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
@@ -15,6 +16,7 @@
         <activity android:name=".TaskSystem.EditTask"></activity>
         <activity android:name=".TaskSystem.regisiter"></activity>
         <activity android:name=".TaskSystem.tasklist"></activity>
+        <activity android:name=".TaskSystem.quicktask"></activity>
         <activity android:name=".MainActivity.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

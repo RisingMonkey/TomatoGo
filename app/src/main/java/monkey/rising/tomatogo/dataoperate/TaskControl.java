@@ -16,14 +16,14 @@ import java.util.ArrayList;
 public class TaskControl {
     ArrayList<Task> tasks=new ArrayList<>();
     private SQLiteDatabase db;
-    private TDH tdh;
+    private BDH tdh;
     private Context context;
     public TaskControl(Context context){
         this.context=context;
     }
 
     public void openDataBase(){
-        tdh=new TDH(context,"Task.db",null,1);
+        tdh=new BDH(context,"data.db",null,1);
         try{
             db=tdh.getWritableDatabase();
         }catch (SQLException e){
@@ -132,18 +132,17 @@ public class TaskControl {
      types.add("运动");
      types.add("娱乐");
      types.add("工作");
+     types.add("休息");
      types.add("其他");
      Log.e("isempty:",""+tasks.isEmpty());
-     if(!tasks.isEmpty()) {
-         for (Task task : tasks) {
-            // Log.e("taskuserid:", task.getUserid());
+     for (Task task : tasks) {
+         if (task.getUserid() != null) {
              if (task.getUserid().equals(user)) {
                  if (Istype(types, task.getType())) {
                      types.add(task.getType());
                  }
              }
          }
-        // Log.e("types:", types.toString());
      }
      return types;
   }

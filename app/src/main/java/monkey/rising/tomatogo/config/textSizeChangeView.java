@@ -7,7 +7,9 @@ import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -26,19 +28,36 @@ public class textSizeChangeView extends AppCompatActivity{
     TextView textExample;
     int textSizeLevel;
     int progress;
+    int initialTextSizeLevel;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Utils.configSP = getSharedPreferences("Settings",MODE_PRIVATE);
+        boolean screenOn = Utils.configSP.getBoolean("lightOn",false);
+        boolean fullScreen = Utils.configSP.getBoolean("fullScreen",true);
+        if (screenOn){
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        }
+        else{
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        }
+        if(fullScreen){
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }else{
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }
         Utils.configSP = getSharedPreferences("textSize",MODE_PRIVATE);
-        textSizeLevel=Utils.configSP.getInt("textSizeStatus",2);
-        progress=Utils.configSP.getInt("progressValue",25);
+        textSizeLevel=Utils.configSP.getInt("textSizeStatus",3);
+        initialTextSizeLevel = textSizeLevel;
+
+        progress=Utils.configSP.getInt("progressValue",50);
        // Utils.onActivityCreateSetTheme(this, Utils.textSizeStatus);
         Utils.onActivityCreateSetTheme(this,textSizeLevel);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_text_size_change_view);
         textSizeBar = (SeekBar)findViewById(R.id.seek_bar_size);
-        ensureButton = (Button)findViewById(R.id.ensure_button);
+        //ensureButton = (Button)findViewById(R.id.ensure_button);
         textViewMini = (TextView)findViewById(R.id.textView_mini);
         textViewSmall = (TextView)findViewById(R.id.textView_small);
         textViewLarge = (TextView)findViewById(R.id.textView_large);
@@ -88,7 +107,7 @@ public class textSizeChangeView extends AppCompatActivity{
             }
         });
 
-        ensureButton.setOnClickListener(new View.OnClickListener() {
+ /*       ensureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Utils.changeTheme(textSizeChangeView.this);
@@ -121,7 +140,7 @@ public class textSizeChangeView extends AppCompatActivity{
                 //Utils.restartApp(textSizeChangeView.this);
             }
             }
-        });
+        });*/
         textViewMini.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -177,5 +196,23 @@ public class textSizeChangeView extends AppCompatActivity{
                 textExample.setTextSize(30);
             }
         });
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode==KeyEvent.KEYCODE_BACK){
+            if(initialTextSizeLevel==textSizeLevel){
+                finish();
+            }
+            else{
+                Utils.editor = Utils.configSP.edit();
+                Utils.editor.putInt("progressValue",progress);
+                Utils.editor.putInt("textSizeStatus",textSizeLevel);
+                Utils.editor.commit();
+                Utils.restartApp(textSizeChangeView.this);
+                Utils.restartApp(this);
+            }
+        }
+        return false;
     }
 }
