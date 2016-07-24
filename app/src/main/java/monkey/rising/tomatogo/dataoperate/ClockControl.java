@@ -53,12 +53,18 @@ public class ClockControl {
     }
 
     public  int getDayByMonth(int year,int month){
+        int day = 0;
+        month--;
         Calendar c=Calendar.getInstance();
         c.set(Calendar.YEAR,year);
         c.set(Calendar.MONTH,month);
-        c.set(Calendar.DATE,1);
-        c.roll(Calendar.DATE,-1);
-        int day=c.get(Calendar.DATE);
+        c.set(Calendar.DAY_OF_MONTH,1);
+
+        while(c.get(Calendar.MONTH) == month){
+            c.add(c.DATE,1);
+            day++;
+        }
+
         return day;
 
     }
@@ -74,7 +80,8 @@ public class ClockControl {
         Date d=new SimpleDateFormat("yyyy-MM").parse(day);
         c.setTime(d);
         int year=c.get(Calendar.YEAR);
-        int month=c.get(Calendar.MONTH);
+        int month=c.get(Calendar.MONTH) + 1;
+        Log.e("coountbymonth:","month:" + month);
         c.set(Calendar.DAY_OF_MONTH,1);
         for (int i=0;i< getDayByMonth(year,month);i++){
             Date date=c.getTime();

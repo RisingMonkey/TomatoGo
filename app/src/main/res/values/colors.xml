@@ -6,7 +6,7 @@
 
     <color name ="black">#000000</color>
     <color name ="white">#ffffff</color>
-    <color name ="lightblue">#00ddff</color>
+    <color name ="lightblue">#dcf5f9</color>
     <color name="grey">#FFDFDFDF</color>
     <color name="holo_purple2">#7a1b81</color>
 </resources>

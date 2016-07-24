@@ -132,6 +132,7 @@ public class TaskControl {
      types.add("运动");
      types.add("娱乐");
      types.add("工作");
+     types.add("休息");
      types.add("其他");
      Log.e("isempty:",""+tasks.isEmpty());
      for (Task task : tasks) {

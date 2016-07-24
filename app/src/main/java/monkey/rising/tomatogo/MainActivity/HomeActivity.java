@@ -8,12 +8,12 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Vibrator;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -27,8 +27,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import monkey.rising.tomatogo.R;
 import monkey.rising.tomatogo.TaskSystem.logactivity;
+import monkey.rising.tomatogo.TaskSystem.quicktask;
 import monkey.rising.tomatogo.TaskSystem.tasklist;
 import monkey.rising.tomatogo.config.Utils;
 import monkey.rising.tomatogo.dataoperate.ClockControl;
@@ -37,6 +40,8 @@ import monkey.rising.tomatogo.dataoperate.TaskControl;
 import monkey.rising.tomatogo.settings.Settings;
 
 public class HomeActivity extends AppCompatActivity {
+    @InjectView(R.id.imageView5)
+    ImageView curTaskView;
     private int recLen;
     private int second;
     private int minute;
@@ -64,12 +69,13 @@ public class HomeActivity extends AppCompatActivity {
     private boolean isDoing;
     private String startTime;
     private Task currentTask;
-    private int i=0;
+    private boolean isResting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        ButterKnife.inject(this);
         this.userTextView = (TextView) super.findViewById(R.id.mytext1);
         this.currentTaskTextView = (TextView) super.findViewById(R.id.mytext2);
         this.waterView = (waterView) super.findViewById(R.id.waterView);
@@ -82,27 +88,34 @@ public class HomeActivity extends AppCompatActivity {
         this.vibrator = (Vibrator) super.getApplication().getSystemService(Service.VIBRATOR_SERVICE);
 
 
-        Utils.configSP = getSharedPreferences("Settings",MODE_PRIVATE);
-        boolean screenOn = Utils.configSP.getBoolean("lightOn",false);
-        boolean fullScreen = Utils.configSP.getBoolean("fullScreen",true);
-        if (screenOn){
+        Utils.configSP = getSharedPreferences("Settings", MODE_PRIVATE);
+        boolean screenOn = Utils.configSP.getBoolean("lightOn", false);
+        boolean fullScreen = Utils.configSP.getBoolean("fullScreen", true);
+        if (screenOn) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        }
-        else{
+        } else {
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         }
-        if(fullScreen){
+        if (fullScreen) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        }else{
+        } else {
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
 
+        curTaskView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent editCurrent = new Intent(HomeActivity.this, quicktask.class);
+                startActivity(editCurrent);
+            }
+        });
+        isResting = false;
         waterView.setFlowNum("选择番茄钟时间");
         waterView.setmWaterLevel(1.0f);
         //获取当前任务
         Intent taskChangedIntent = getIntent();
-            Bundle taskExtras = taskChangedIntent.getExtras();
-        if(taskExtras !=null)
+        Bundle taskExtras = taskChangedIntent.getExtras();
+        if (taskExtras != null)
             curTask = taskExtras.getString("taskid");
         if (curTask == null) {
             curTask = "eat";
@@ -139,14 +152,14 @@ public class HomeActivity extends AppCompatActivity {
             });
         }
 
-        currentTaskTextView.setText("当前任务：" + ((currentTask==null)?"空闲":currentTask.getContent().toString()));
+        currentTaskTextView.setText("当前任务：" + ((currentTask == null) ? "空闲" : currentTask.getContent().toString()));
         currentTaskTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //跳转至当前任务编辑页面
-//                Intent taskEditIntent = new Intent();
-//                taskEditIntent.setClass(HomeActivity.this,QuickStartActivity.class);
-//                startActivity(taskEditIntent);
+                Intent taskEditIntent = new Intent();
+                taskEditIntent.setClass(HomeActivity.this, quicktask.class);
+                startActivity(taskEditIntent);
             }
         });
 
@@ -169,7 +182,7 @@ public class HomeActivity extends AppCompatActivity {
                 Intent intent4 = new Intent();
                 intent4.setClass(HomeActivity.this, Settings.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("useid", username);
+                bundle.putString("userid", username);
                 intent4.putExtras(bundle);
                 startActivity(intent4);
             }
@@ -186,17 +199,27 @@ public class HomeActivity extends AppCompatActivity {
                 minutePicker.setEnabled(false);
                 currentTaskTextView.setEnabled(false);
                 if (!isDoing) {
-                    isDoing=true;
+                    isDoing = true;
+                    curTaskView.setClickable(false);
                     TomatoGo(Integer.parseInt(minutePicker.getDisplayedValues()[minutePicker.getValue()]));
                 } else {
                     AlertDialog.Builder dialog = new AlertDialog.Builder(HomeActivity.this);
-                    dialog.setTitle("半途而废？");
-                    dialog.setMessage("确定放弃本次番茄钟？");
+                    if(!isResting){
+                        dialog.setTitle("半途而废？");
+                        dialog.setMessage("确定放弃本次番茄钟？");
+                    }
+                    else{
+                        dialog.setTitle("中断休息？");
+                        dialog.setMessage("不再休息一会嘛(￣▽￣)");
+                    }
+                    dialog.setCancelable(false);
                     dialog.setPositiveButton("是", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                           handler.removeCallbacks(runnable);
+                            handler.removeCallbacks(runnable);
+                            curTaskView.setClickable(true);
                             waterView.stopWave();
                             isDoing = false;
+                            isResting = false;
                             waterView.setFlowNum("");
                             waterView.setmWaterLevel(1F);
                             ClockControl cc = new ClockControl(getApplicationContext());
@@ -242,6 +265,7 @@ public class HomeActivity extends AppCompatActivity {
                 mySharedPreference = getSharedPreferences("Settings", MODE_PRIVATE);
                 shake = mySharedPreference.getBoolean("shake", true);
                 if (shake) {
+                    vibrator.vibrate(3000);
                     HomeActivity.this.vibrator.vibrate(new long[]{1000, 10, 1000, 100}, -1);//震动服务
                 }
                 bell = mySharedPreference.getBoolean("bell", true);
@@ -255,34 +279,79 @@ public class HomeActivity extends AppCompatActivity {
                 }
                 currentTaskTextView.setEnabled(true);
                 ClockControl cc = new ClockControl(getApplicationContext());
-                cc.openDataBase();
-                cc.insertOneClock(startTime, username, curTask, (totalSec - recLen) / 60, totalSec / 60, true);
-                cc.closeDb();
+                if (!isResting) {
+                    cc.openDataBase();
+                    cc.insertOneClock(startTime, username, curTask, (totalSec - recLen) / 60, totalSec / 60, true);
+                    cc.closeDb();
+                }
                 AlertDialog.Builder dialog = new AlertDialog.Builder(HomeActivity.this);
-                dialog.setTitle("番茄完成");
-                dialog.setMessage("你工作了" + totalSec / 60 + " 分钟!");
-                i=0;
-                CheckBox cb = new CheckBox(getApplicationContext());
-                String content;
-                if (currentTask == null)
-                    content = "Task";
-                else
-                    content = currentTask.getContent();
-                cb.setText("任务：" + content + "完成");
-                dialog.setView(cb);
-                dialog.setPositiveButton("放松一下☺(5min)", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        TomatoGo(5);
-                    }
-                });
-                dialog.setNegativeButton("继续工作", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        TomatoGo(Integer.parseInt(minutePicker.getDisplayedValues()[minutePicker.getValue()]));
-                    }
-                });
-                dialog.show();
+                dialog.setCancelable(false);
+                if (isResting) {
+                    dialog.setTitle("休息完成");
+                    dialog.setMessage("继续工作吧！");
+                    dialog.setPositiveButton("再休息一会吧QAQ(5min)", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            isResting = true;
+                            TomatoGo(5);
+                        }
+                    });
+                    dialog.setNegativeButton("继续工作!", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            isResting = false;
+                            curTaskView.setClickable(false);
+                            TomatoGo(Integer.parseInt(minutePicker.getDisplayedValues()[minutePicker.getValue()]));
+                        }
+                    });
+                    dialog.setNeutralButton("返回", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            isResting = false;
+                            isDoing = false;
+                            waterView.setmWaterLevel(1.0f);
+                            waterView.setFlowNum("");
+                        }
+                    });
+                    dialog.show();
+                } else {
+                    dialog.setTitle("番茄完成");
+                    dialog.setMessage("你工作了" + totalSec / 60 + " 分钟!");
+                    CheckBox cb = new CheckBox(getApplicationContext());
+                    String content;
+                    if (currentTask == null)
+                        content = "";
+                    else
+                        content = currentTask.getContent();
+                    cb.setText("任务：" + content + "完成");
+                    dialog.setView(cb);
+                    dialog.setPositiveButton("放松一下☺(5min)", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            curTaskView.setClickable(true);
+                            isResting = true;
+                            TomatoGo(5);
+                        }
+                    });
+                    dialog.setNegativeButton("继续工作", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            curTaskView.setClickable(false);
+                            isResting = false;
+                            TomatoGo(Integer.parseInt(minutePicker.getDisplayedValues()[minutePicker.getValue()]));
+                        }
+                    });
+                    dialog.setNeutralButton("返回", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            curTaskView.setClickable(true);
+                            isDoing = false;
+                            waterView.setmWaterLevel(1.0f);
+                            waterView.setFlowNum("");
+                        }
+                    });
+                    dialog.show();
+                }
             }
         }
     };
@@ -304,7 +373,6 @@ public class HomeActivity extends AppCompatActivity {
 
     private void TomatoGo(int mt) {
         startTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US).format(new Date());
-        Log.e("date",startTime);
         minute = mt;
         totalSec = 60 * minute;
         if (totalSec == 0)

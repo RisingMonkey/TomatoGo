@@ -24,7 +24,10 @@
         android:id="@+id/view"
         android:layout_below="@+id/textView3"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/addBtn"
+        android:layout_alignRight="@+id/addBtn"
+        android:layout_alignEnd="@+id/addBtn" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -51,18 +54,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/addBtn"
         android:src="@android:drawable/ic_media_ff"
-        android:layout_alignTop="@+id/imageButton"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
-
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageButton"
-        android:src="@android:drawable/ic_media_rew"
-        android:background="#ffffff"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -73,6 +66,15 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:textSize="30dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView11"
+        android:src="@android:drawable/ic_media_rew"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 
 </RelativeLayout>

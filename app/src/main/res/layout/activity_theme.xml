@@ -20,13 +20,12 @@
     <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/theme2"
-        android:layout_alignBottom="@+id/lightblue"
-        android:layout_alignEnd="@+id/yellow"
-        android:layout_alignStart="@+id/yellow"
         android:touchscreenBlocksFocus="true"
         android:id="@+id/radiogroup"
-        android:measureWithLargestChild="true">
+        android:measureWithLargestChild="true"
+        android:layout_below="@+id/theme2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
     <RadioButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

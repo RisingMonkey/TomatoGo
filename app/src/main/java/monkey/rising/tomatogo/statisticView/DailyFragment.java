@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -56,10 +55,10 @@ public class DailyFragment extends Fragment {
     ColumnChartView ColumnChart;
     @InjectView(R.id.addBtn)
     ImageView addBtn;
-    @InjectView(R.id.imageButton)
-    ImageButton subBtn;
     @InjectView(R.id.textView6)
     TextView monthView;
+    @InjectView(R.id.imageView11)
+    ImageView subBtn;
 
     private LineChartData lineData;
     private ColumnChartData columnData;
@@ -71,7 +70,7 @@ public class DailyFragment extends Fragment {
             "11", "12", "13", "14", "15", "16", "17", "18", "19", "20",
             "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31",};
 
-    public final static String[] time = new String[]{"0-4", "4-8", "8-12", "12-16", "16-20", "20-24"};
+    public final static String[] time = new String[]{"0-4", "4-8", "8-12", "12-16", "16-20", "20-24  "};
 
     public DailyFragment() {
         // Required empty public constructor
@@ -91,10 +90,11 @@ public class DailyFragment extends Fragment {
         cc.closeDb();
 
         curMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
+        Log.e("curMonth:","" +curMonth);
 
         SharedPreferences sharedPreferences;
         sharedPreferences = getContext().getSharedPreferences("share", Activity.MODE_PRIVATE);
-        userid = sharedPreferences.getString("userid", "");
+        userid = sharedPreferences.getString("userid", "monkey");
 
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,12 +148,13 @@ public class DailyFragment extends Fragment {
 
         int numSubcolumns = 1;
         int numColumns = cc.getDayByMonth(2016, month);
+        Log.e("time:","month:" + month + "day: " + numColumns);
 
         ColumnChart.cancelDataAnimation();
         List<AxisValue> axisValues = new ArrayList<AxisValue>();
         List<Column> columns = new ArrayList<Column>();
         List<SubcolumnValue> values;
-        for (int i = 0; i < numColumns-1; ++i) {
+        for (int i = 0; i < numColumns ; ++i) {
 
             values = new ArrayList<SubcolumnValue>();
             for (int j = 0; j < numSubcolumns; ++j) {

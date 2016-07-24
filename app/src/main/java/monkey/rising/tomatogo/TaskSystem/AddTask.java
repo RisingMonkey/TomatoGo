@@ -85,6 +85,17 @@ public class AddTask extends AppCompatActivity {
                     return null;
             }
         }});
+
+        type.setFilters(new InputFilter[]{new InputFilter() {
+            @Override
+            public CharSequence filter(CharSequence charSequence, int i, int i1, Spanned spanned, int i2, int i3) {
+                if(charSequence.equals(" ")||charSequence.equals("\n"))
+                    return "";
+                else
+                    return null;
+            }
+        }});
+
         SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         id=format.format(new java.util.Date());
 

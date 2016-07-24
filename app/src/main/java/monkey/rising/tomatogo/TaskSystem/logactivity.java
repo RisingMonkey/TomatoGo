@@ -49,9 +49,6 @@ public class logactivity extends AppCompatActivity {
         }else{
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
-        Utils.configSP = getSharedPreferences("textSize",MODE_PRIVATE);
-        int textSizeLevel = Utils.configSP.getInt("textSizeStatus",3);
-        Utils.onActivityCreateSetTheme(this,textSizeLevel);
 
 
         super.onCreate(savedInstanceState);

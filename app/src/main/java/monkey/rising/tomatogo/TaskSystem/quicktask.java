@@ -17,7 +17,8 @@ import monkey.rising.tomatogo.dataoperate.Task;
 import monkey.rising.tomatogo.dataoperate.TaskControl;
 
 public class quicktask extends AppCompatActivity {
-private ListView listView;
+
+    private ListView listView;
     TaskControl taskControl;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +27,6 @@ private ListView listView;
         listView=(ListView)findViewById(R.id.listView);
         taskControl=new TaskControl(this);
         taskControl.openDataBase();
-        taskControl.loadTask();
         taskControl.loadTask();
         SharedPreferences shared=getSharedPreferences("share",MODE_PRIVATE);
 
